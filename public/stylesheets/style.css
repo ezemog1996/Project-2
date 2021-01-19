@@ -2,9 +2,70 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
 body {
   background-color: #a1bef3;
 }
+
+.bg-warning {
+  background-color: khaki !important;
+}
+
+.bg-light {
+  background-color: lightyellow !important;
+}
+
+.bg-light2 {
+  background-color: lightgoldenrodyellow;
+}
+
+.btn-primary {
+  background-color: darkblue;
+}
+
+.rounded-top {
+  border-radius: 25px 25px 0 0 !important;
+}
+
+.borderTopSides {
+  border-top: 5px solid gold;
+  border-right: 5px solid gold;
+  border-left: 5px solid gold;
+}
+
+.borderTop {
+  border-top: 5px solid gold;
+}
+
+.borderTopLight {
+  border-top: 5px solid lightyellow;
+}
+
+.borderSides {
+  border-right: 5px solid gold;
+  border-left: 5px solid gold;
+}
+
+.borderTopExtraLight {
+  border-top: 3px solid white;
+  border-right: 3px solid white;
+  border-left: 3px solid white;
+}
+
+.borderExtraLight {
+  border-right: 3px solid white;
+  border-left: 3px solid white;
+  border-bottom: 3px solid white;
+}
+
+#signUpLogo {
+  display: block;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 .background {
   height: 100%;
   width: 100%;
