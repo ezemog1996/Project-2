@@ -7,6 +7,7 @@ body {
   background-color: #a1bef3;
   font-family: 'Yusei Magic', sans-serif;
   color: midnightblue;
+
 }
 
 .bg-warning {
@@ -72,10 +73,12 @@ body {
   margin-right: auto;
 }
 
+
 #regLogo {
   display: block;
   width: 125px;
 }
+
 
 .background {
   height: 100%;
