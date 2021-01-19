@@ -5,6 +5,9 @@ form.login {
 
 body {
   background-color: #a1bef3;
+  font-family: 'Yusei Magic', sans-serif;
+  color: midnightblue;
+
 }
 
 .bg-warning {
@@ -19,12 +22,17 @@ body {
   background-color: lightgoldenrodyellow;
 }
 
-.btn-primary {
-  background-color: darkblue;
+.bg-primary {
+  background-color: darkblue !important;
+  border: 5px solid black;
 }
 
 .rounded-top {
   border-radius: 25px 25px 0 0 !important;
+}
+
+.roundedImportant {
+  border-radius: 20px !important;
 }
 
 .borderTopSides {
@@ -63,6 +71,12 @@ body {
   width: 200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+
+#regLogo {
+  display: block;
+  width: 125px;
 }
 
 
