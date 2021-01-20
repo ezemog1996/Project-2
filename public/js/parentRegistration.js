@@ -13,11 +13,12 @@ $(document).ready(() => {
     if (uploader.files && uploader.files[0]) {
       $("#profileImage").attr(
         "src",
-        window.URL.createObjectURL(uploader.files[0]));
+        window.URL.createObjectURL(uploader.files[0])
+      );
     }
   }
 
-  $("#imageUpload").change(function(){
+  $("#imageUpload").change(function() {
     fasterPreview(this);
   });
 
@@ -28,7 +29,7 @@ $(document).ready(() => {
     const parentData = {
       parentName: parentName.val().trim(),
       lastName: lastName.val().trim(),
-      gender: genderSelect.val(),
+      gender: genderSelect.val()
     };
     console.log(userData);
 
@@ -61,4 +62,4 @@ $(document).ready(() => {
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
   }
-})
+});
