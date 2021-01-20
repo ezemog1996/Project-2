@@ -3,7 +3,7 @@ $(document).ready(() => {
   const submit = $("#submit");
   const parentName = $("input#parent-name");
   const lastName = $("input#parent-last-name");
-  const genderSelect = $("select#selectState");
+  const relationshipSelect = $("select#relationshipSelect");
 
   $("#profileImage").click(() => {
     $("#imageUpload").click();
@@ -24,32 +24,31 @@ $(document).ready(() => {
 
   // When the signup button is clicked, we validate the email and password are not blank
   submit.on("click", event => {
-    console.log(photo);
     event.preventDefault();
     const parentData = {
       parentName: parentName.val().trim(),
       lastName: lastName.val().trim(),
-      gender: genderSelect.val()
+      relationship: relationshipSelect.val()
     };
-    console.log(userData);
+    console.log(parentData);
 
     if (!parentData.parentName || !parentData.lastName) {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(parentData.parentName, parentData.lastName, parentData.gender);
+    signUpUser(parentData.parentName, parentData.lastName, parentData.relationship);
     parentName.val("");
     lastName.val("");
-    genderSelect.val("Select Gender");
+    relationshipSelect.val("Relationship");
   });
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
-  function signUpUser(parentName, lastName, gender) {
+  function signUpUser(parentName, lastName, relationship) {
     $.post("/api/parent-registration", {
       parentName: parentName,
       lastName: lastName,
-      gender: gender
+      relationship: relationship
     })
       .then(() => {
         window.location.replace("/register-child");
