@@ -36,7 +36,11 @@ $(document).ready(() => {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(parentData.parentName, parentData.lastName, parentData.relationship);
+    signUpUser(
+      parentData.parentName,
+      parentData.lastName,
+      parentData.relationship
+    );
     parentName.val("");
     lastName.val("");
     relationshipSelect.val("Relationship");
