@@ -1,10 +1,12 @@
-var mysql = require("mysql");
+const mysql = require("mysql")
 connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Sap92010",
-    database: "striveRite_db",
+    password: " ",
+    database: "striveRite_db"
+
 });
+
 
 connection.connect(function (err) {
     if (err) {

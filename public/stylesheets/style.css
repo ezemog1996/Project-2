@@ -24,13 +24,45 @@ body {
 
 .bg-primary {
   background-color: darkblue !important;
+<<<<<<< HEAD
   border: 5px solid black;
 }
 
+=======
+}
+
+.black-border {
+  border: 5px solid black;
+}
+
+.black-border-top {
+  border-top: 5px solid black;
+}
+
+.black-border-left {
+  border-left: 5px solid black;
+}
+
+.black-border-right {
+  border-right: 5px solid black;
+}
+
+.black-border-bottom {
+  border-bottom: 5px solid black;
+}
+
+>>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 .rounded-top {
   border-radius: 25px 25px 0 0 !important;
 }
 
+<<<<<<< HEAD
+=======
+.rounded-bottom {
+  border-radius: 0 0 25px 25px !important;
+}
+
+>>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 .roundedImportant {
   border-radius: 20px !important;
 }
@@ -66,6 +98,13 @@ body {
   border-bottom: 3px solid white;
 }
 
+<<<<<<< HEAD
+=======
+.info-divs {
+  background-color: #87cefa;
+}
+
+>>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 #signUpLogo {
   display: block;
   width: 200px;
@@ -102,3 +141,36 @@ body {
   background-color: white;
   border: 2px solid black
 }
+<<<<<<< HEAD
+=======
+
+#profileImage {
+  cursor: pointer;
+}
+
+#profile-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid green;
+  overflow: hidden;
+}
+
+#profile-select-container {
+  width: 75px;
+  height: 75px;
+  border-radius: 10px;
+  border: 3px solid #87cefa;
+  overflow: hidden;
+}
+
+#profile-select-container img {
+  width: 75px;
+  height: 75px;
+}
+
+#profile-container img {
+  width: 150px;
+  height: 150px;
+}
+>>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
