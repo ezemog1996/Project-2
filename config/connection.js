@@ -2,7 +2,7 @@ var mysql = require("mysql");
 connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "Sap92010",
     database: "striveRite_db",
 });
 
