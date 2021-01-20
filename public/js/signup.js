@@ -23,7 +23,13 @@ $(document).ready(() => {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password);
+    signUpUser(
+      userData.name,
+      userData.email,
+      userData.state,
+      userData.city,
+      userData.password
+    );
     nameInput.val("");
     emailInput.val("");
     stateSelect.val("Select your state");

@@ -9,6 +9,7 @@
   <link href="stylesheets/style.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/83cb9d05bd.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
       
         <div class="col-12 col-sm-12 col-md-12">
           <div class="text-center">
-            <h2 class="btn bg-primary text-white roundedImportant" style="font-size:25px;">Registration</h2>
+            <h2 class="btn bg-primary text-white roundedImportant black-border" style="font-size:25px;">Registration</h2>
           </div>
         </div>
       </div>
@@ -43,18 +44,53 @@
             </div>
           </div>
           
-          <div class="row bg-light borderSides">
-            stuff goes here
+          <div class="row bg-light borderSides" style="border-bottom: 5px solid gold;">
+            <div class="col-12 col-sm-12 col-md-12">
+              <div class="row mx-1 mt-2 p-1 bg-primary rounded-top black-border-top black-border-left black-border-right">
+                <div class="col-12 col-sm-12 col-md-12">
+                  <h4 class="text-white">1. Enter Your Information</h4>
+                </div>
+              </div>
+              <div class="row mx-1 p-1 info-divs black-border-left black-border-right rounded-bottom black-border-bottom mb-2">
+                <div class="col-12 col-sm-12 col-md-8">
+                  <form>
+                    <div class="mb-3">
+                      <label for="nameInput" class="form-label">Parent's First Name</label>
+                      <input type="name" class="form-control" id="parent-name" placeholder="(as you want it to appear on the site)">
+                    </div>
+                    <div class="mb-3">
+                      <label for="lastNameInput" class="form-label">Family Name</label>
+                      <input type="lastName" class="form-control" id="parent-last-name">
+                    </div>
+                  </form>
+                  <button type="submit" id="submit" class="btn btn-danger mb-2 ms-auto">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="col-6 col-sm-4 col-md-5 col-lg-4">
+                  <label for="nameInput" class="form-label">Gender</label>
+                  <select class="form-select" id="genderSelect" aria-label="Default select example">
+                    <option selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                  <h6 class="mt-2">Upload or select an image</h6>
+                  <div id="profile-container">
+                    <image id="profileImage" src="https://breakthrough.org/wp-content/uploads/2018/10/default-placeholder-image.png" />
+                 </div>
+                 <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture>
+                </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <div class="text-center my-1 col-12 col-sm-12 col-md-12">Terms & Conditions | Privacy Policy | Support</div>
         </div>
-        <div class="text-center my-1">Terms & Conditions | Privacy Policy | Support</div>
       </div>
     </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="./js/signup.js"></script>
+  <script type="text/javascript" src="./js/parentRegistration.js"></script>
 
 </body>
 

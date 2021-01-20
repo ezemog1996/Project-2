@@ -24,11 +24,34 @@ body {
 
 .bg-primary {
   background-color: darkblue !important;
+}
+
+.black-border {
   border: 5px solid black;
+}
+
+.black-border-top {
+  border-top: 5px solid black;
+}
+
+.black-border-left {
+  border-left: 5px solid black;
+}
+
+.black-border-right {
+  border-right: 5px solid black;
+}
+
+.black-border-bottom {
+  border-bottom: 5px solid black;
 }
 
 .rounded-top {
   border-radius: 25px 25px 0 0 !important;
+}
+
+.rounded-bottom {
+  border-radius: 0 0 25px 25px !important;
 }
 
 .roundedImportant {
@@ -66,6 +89,10 @@ body {
   border-bottom: 3px solid white;
 }
 
+.info-divs {
+  background-color: #87cefa;
+}
+
 #signUpLogo {
   display: block;
   width: 200px;
@@ -101,4 +128,34 @@ body {
   padding-right: 15%;
   background-color: white;
   border: 2px solid black
+}
+
+#profileImage {
+  cursor: pointer;
+}
+
+#profile-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid green;
+  overflow: hidden;
+}
+
+#profile-select-container {
+  width: 75px;
+  height: 75px;
+  border-radius: 10px;
+  border: 3px solid #87cefa;
+  overflow: hidden;
+}
+
+#profile-select-container img {
+  width: 75px;
+  height: 75px;
+}
+
+#profile-container img {
+  width: 150px;
+  height: 150px;
 }
