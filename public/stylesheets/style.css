@@ -149,6 +149,7 @@ body {
 
 .cardStyle {
   background-color: #0dcaf0;
+  margin-left: 2rem;
 }
 #profileImage {
   cursor: pointer;
@@ -178,4 +179,16 @@ body {
 #profile-container img {
   width: 150px;
   height: 150px;
+}
+
+#vacuumPic {
+  width: 35%;
+  height: 35%;
+  margin-top: 5rem;
+}
+
+#laundryPic {
+  width: 40%;
+  height: 40%;
+  margin-left: 2rem;
 }
