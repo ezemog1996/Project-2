@@ -141,7 +141,6 @@ body {
   border: 2px solid black
 }
 
-<<<<<<< HEAD
 .hp {
   position: relative;
   max-width: 100%;
@@ -150,7 +149,7 @@ body {
 
 .cardStyle {
   background-color: #0dcaf0;
-=======
+}
 #profileImage {
   cursor: pointer;
 }
@@ -179,5 +178,4 @@ body {
 #profile-container img {
   width: 150px;
   height: 150px;
->>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 }
