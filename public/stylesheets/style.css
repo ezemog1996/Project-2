@@ -147,6 +147,10 @@ body {
   height: auto;
 }
 
+.card-header {
+  width: 100%;
+}
+
 .cardStyle {
   background-color: #0dcaf0;
   margin-left: 2rem;
@@ -191,4 +195,9 @@ body {
   width: 40%;
   height: 40%;
   margin-left: 2rem;
+}
+#btnSubmit {
+  width: 8rem;
+  height: 3rem;
+  margin-right: 6rem;
 }
