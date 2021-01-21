@@ -196,6 +196,16 @@ body {
   height: 40%;
   margin-left: 2rem;
 }
+#trashPic {
+  width: 30%;
+  height: 30%;
+  float: right;
+}
+#dustingPic {
+  width: 15%;
+  height: 15%;
+  float: right;
+}
 #btnSubmit {
   width: 8rem;
   height: 3rem;
