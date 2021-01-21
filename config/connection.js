@@ -1,5 +1,7 @@
-const mysql = require("mysql")
-connection = mysql.createConnection({
+const mysql = require("mysql");
+
+
+const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: " ",
@@ -7,12 +9,28 @@ connection = mysql.createConnection({
 
 });
 
-
-connection.connect(function (err) {
+connection.connect((err) => {
     if (err) {
-        console.log("error connecting " + err.stack);
-        return;
+        throw err;
     }
-    console.log("connected as id " + connection.threadId);
+    console.log("MySQL Connected..");
+
 });
 module.exports = connection;
+
+
+
+
+
+
+
+
+
+// connection.connect(function (err) {
+//     if (err) {
+//         console.log("error connecting " + err.stack);
+//         return;
+//     }
+//     console.log("connected as id " + connection.threadId);
+// });
+// module.exports = connection;
