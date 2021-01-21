@@ -148,12 +148,12 @@ body {
 }
 
 .card-header {
-  width: 100%;
+  width: 103%;
 }
 
 .cardStyle {
   background-color: #0dcaf0;
-  margin-left: 2rem;
+  margin-left: 4rem;
 }
 #profileImage {
   cursor: pointer;
