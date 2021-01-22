@@ -1,21 +1,21 @@
 const mysql = require("mysql");
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: " ",
-  database: "striveRite_db",
+    host: "localhost",
+    user: "root",
+    password: " ",
+    database: "striveRite_db",
 });
 
 connection.connect((err) => {
-  if (err) {
-    throw err;
-  }
-  console.log("MySQL Connected..");
+    if (err) {
+        throw err;
+    }
+    console.log("MySQL Connected..");
 });
 module.exports = connection;
 
-tetst;
+
 
 // connection.connect(function (err) {
 //     if (err) {
