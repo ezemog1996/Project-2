@@ -134,24 +134,24 @@
 
                     <br>
                     <h5 class="card-title">Task Priority*</h5>
-                      <select class="form-select" aria-label="Value">
+                      <select id="priority" class="form-select" aria-label="Value">
 
                           <option selected>Select Priority Level</option>
-                          <option value="money">Low</option>
-                          <option value="numbers">Medium</option>
-                          <option value="stars">High</option>
+                          <option value="1">Low</option>
+                          <option value="2">Medium</option>
+                          <option value="3">High</option>
 
                         </select>
                     <br>
                     <h5 class="card-title">Assigned By*</h5>
                     <div class="input-group">
-                        <input type="text" aria-label="Value of Task" class="form-control" style="max-width: 20rem;">
+                        <input id="assigned-by" type="text" aria-label="Value of Task" class="form-control" style="max-width: 20rem;">
                     </div>
                         
                 </div>
                 <br>
                 <div class="d-grid d-md-flex justify-content-md-end">
-                    <button type="submit" id="btnSubmit" class="btn btn-danger">SAVE</button>
+                    <button id="saveTask" type="submit" id="btnSubmit" class="btn btn-danger">SAVE</button>
                 </div>  
                 <br>           
         </div>

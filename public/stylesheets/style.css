@@ -191,9 +191,9 @@ a {
   color: inherit !important;
 }
 
-/* #markup-container {
+#markup-container {
   min-height: 500px;
-} */
+}
 
 #vacuumPic {
   width: 35%;
