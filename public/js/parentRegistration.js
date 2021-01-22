@@ -5,23 +5,6 @@ $(document).ready(() => {
   const lastName = $("input#parent-last-name");
   const relationshipSelect = $("select#relationshipSelect");
 
-  $("#profileImage").click(() => {
-    $("#imageUpload").click();
-  });
-
-  function fasterPreview(uploader) {
-    if (uploader.files && uploader.files[0]) {
-      $("#profileImage").attr(
-        "src",
-        window.URL.createObjectURL(uploader.files[0])
-      );
-    }
-  }
-
-  $("#imageUpload").change(function() {
-    fasterPreview(this);
-  });
-
   // When the signup button is clicked, we validate the email and password are not blank
   submit.on("click", event => {
     event.preventDefault();

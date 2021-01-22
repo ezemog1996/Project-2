@@ -12,26 +12,53 @@
 </head>
 
 <body>
-<nav class="navbar navbar-light bg-white">
+  <nav class="navbar navbar-light bg-white">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
       </a>
+      <a href="#">Sign out</a>
     </div>
-</nav>
-<div class="container mt-3">
+  </nav>
+  <div class="container mt-3">
     <div class="row">
       <div class="col-12 col-sm-12 col-md-9 bg-warning px-4 borderTopExtraLight">
-        <div class="col-4 col-sm-4 col-md-4">
-            <img id="regLogo" src="./assets/images/Strive Rite.png">
-            <h5>responsibility the fun way</h5>
-        </div>
-      
-        <div class="col-12 col-sm-12 col-md-12">
-          <div class="text-center">
-            <h2 class="btn bg-primary text-white roundedImportant" style="font-size:25px;">Create Task</h2>
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+          <div class="container-fluid">
+            <div class="col-4 col-sm-4 col-md-4">
+              <img id="regLogo" src="./assets/images/Strive Rite.png">
+              <h6>responsibility the fun way</h6>
           </div>
-        </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tasks
+                  </a>
+                  <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">View Tasks</a></li>
+                    <li><a class="dropdown-item" href="#">Assign New Task</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Prizes
+                  </a>
+                  <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">View Prizes</a></li>
+                    <li><a class="dropdown-item" href="#">Add New Prize</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
     </div>
     <div class="row">
@@ -49,21 +76,21 @@
                 <div class="card-body text-black">
                     <h5 class="card-title">Task Title*</h5>
                     <div class="input-group">
-                        <input type="text" aria-label="Task Title" class="form-control">
+                        <input id="task-title" type="text" aria-label="Task Title" class="form-control">
                     </div>
                     <br>
                     <h5 class="card-title">Task Description*</h5>
                     <div class="input-group">
-                        <input type="text" aria-label="Task Description" class="form-control">
+                        <input id="task-description" type="text" aria-label="Task Description" class="form-control">
                     </div>
                     <br>
-                    <h5 class="card-title">Date of Completion*</h5>
+                    <h5 class="card-title">Date of Completion* (mm/dd/yyyy)</h5>
                     <div class="input-group">
-                        <input type="text" aria-label="Completion" class="form-control" style="max-width: 20rem;">
+                        <input id="date" type="text" aria-label="Completion" class="form-control" style="max-width: 20rem;">
                     </div>
                     <br>
                     <h5 class="card-title">Time of Completion*</h5>
-                      <select class="form-select" aria-label="Time" style="max-width: 20rem;">
+                      <select class="form-select" id="time" aria-label="Time" style="max-width: 20rem;">
                           <option selected>Select time</option>
                           <option value="0600">6:00 am</option>
                           <option value="0630">6:30 am</option>
@@ -102,41 +129,43 @@
                     <br>
                     <h5 class="card-title">Point Value of Task*</h5>
                     <div class="input-group">
-                            <input type="text" aria-label="Value of Task" class="form-control" style="max-width: 20rem;">
+                            <input id="points" type="text" aria-label="Value of Task" class="form-control" style="max-width: 20rem;">
                     </div>
 
                     <br>
                     <h5 class="card-title">Task Priority*</h5>
-                      <select class="form-select" aria-label="Value">
+                      <select id="priority" class="form-select" aria-label="Value">
 
                           <option selected>Select Priority Level</option>
-                          <option value="money">Low</option>
-                          <option value="numbers">Medium</option>
-                          <option value="stars">High</option>
+                          <option value="1">Low</option>
+                          <option value="2">Medium</option>
+                          <option value="3">High</option>
 
                         </select>
                     <br>
                     <h5 class="card-title">Assigned By*</h5>
                     <div class="input-group">
-                        <input type="text" aria-label="Value of Task" class="form-control" style="max-width: 20rem;">
+                        <input id="assigned-by" type="text" aria-label="Value of Task" class="form-control" style="max-width: 20rem;">
                     </div>
                         
                 </div>
                 <br>
                 <div class="d-grid d-md-flex justify-content-md-end">
-                    <button type="submit" id="btnSubmit" class="btn btn-danger">SAVE</button>
+                    <button id="saveTask" type="submit" id="btnSubmit" class="btn btn-danger">SAVE</button>
                 </div>  
                 <br>           
         </div>
         <img src="assets/images/Trash Bag.png" class="rounded" alt="Boy trash bag" id="trashPic">
         <img src="assets/images/Dusting.png" class="rounded" alt="girl dusting" id="dustingPic">
     </div>
-   
-        <div class="text-center my-1">Terms & Conditions | Privacy Policy | Support</div>
+          <div class="text-center my-1 col-12 col-sm-12 col-md-12">Terms & Conditions | Privacy Policy | Support</div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   
 <script type="text/javascript" src="./js/signup.js"></script>
 
