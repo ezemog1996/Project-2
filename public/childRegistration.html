@@ -49,12 +49,12 @@
                 <div class="card-body text-black">
                     <h5 class="card-title">First Name</h5>
                     <div class="input-group">
-                        <input type="text" aria-label="First name" class="form-control">
+                        <input type="text" aria-label="First name" id="child-name" class="form-control">
                       </div>
                       <br>
                       <h5 class="card-title">Birthday</h5>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button" Style="max-width: 8rem">
+                        <input type="text" class="form-control" id="birth-month" aria-label="Text input with dropdown button" Style="max-width: 8rem">
                         <button class="btn btn-outline-light dropdown-toggle bg-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu dropdown-menu-end">
                           <li><a class="dropdown-item" href="#">January</a></li>
@@ -71,7 +71,7 @@
                           <li><a class="dropdown-item" href="#">December</a></li>
                         </ul>
                         <input type="text" class="form-control" aria-label="Text input with dropdown button" Style="max-width: 5rem">
-                        <button class="btn btn-outline-light dropdown-toggle bg-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <button class="btn btn-outline-light dropdown-toggle bg-primary" id="birth-day" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu dropdown-menu-end">
                           <li><a class="dropdown-item" href="#">01</a></li>
                           <li><a class="dropdown-item" href="#">02</a></li>
@@ -106,7 +106,7 @@
                           <li><a class="dropdown-item" href="#">31</a></li>
                         </ul>
                         <input type="text" class="form-control" aria-label="Text input with dropdown button" Style="max-width: 5rem">
-                        <button class="btn btn-outline-light dropdown-toggle bg-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <button class="btn btn-outline-light dropdown-toggle bg-primary" id="birth-year" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu dropdown-menu-end">
                           <li><a class="dropdown-item" href="#">2021</a></li>
                           <li><a class="dropdown-item" href="#">2020</a></li>
@@ -136,46 +136,40 @@
                       <h5 class="card-title">Gender</h5>
                       <div class="input-group mb-3">
                         <input type="text" class="form-control" aria-label="Text input with dropdown button" Style="max-width: 12rem">
-                        <button class="btn btn-outline-light dropdown-toggle bg-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <button class="btn btn-outline-light dropdown-toggle bg-primary" id="gender" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
                         <ul class="dropdown-menu dropdown-menu-end">
                           <li><a class="dropdown-item" href="#">Female</a></li>
                           <li><a class="dropdown-item" href="#">Male</a></li>
                           <li><a class="dropdown-item" href="#">Other</a></li>
                         </ul>
-                    </div>
+                        </div>
+                        <br>
+                        <h5 class="card-title">Color Theme</h5>
+                        <div class="input-group mb-3">
+                            <select class="form-select" id="color" aria-label="Default select example">
+                                <option selected>Select color code</option>
+                                <option value="red">Red</option>
+                                <option value="yellow">Yellow</option>
+                                <option value="green">Green</option>
+                                <option value="blue">Blue</option>
+                                <option value="grey">Grey</option>
+                                <option value="pink">Pink</option>
+                            </select>
+                        </div>
               </div>
           </div>
-          <img src="assets/images/Vacuum.png" class="rounded float-end" alt="Little girl vacuums" id="vacuumPic">
-          <img src="assets/images/Laundry.png" class="rounded float-start" alt="young boy doing Laundry" id="laundryPic">
-            <div class="card mt-3 border-primary mb-3 roundedImportant cardStyle" Style="max-width: 25rem">
-                <div class="card-header rounded-top bg-primary border-primary text-white" style="max-width: 40rem">2. Customize your child's account</div>
-                <div class="card-body text-black"></div>
-                <h5 class="card-title">Color Theme</h5>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Select color code</option>
-                    <option value="red">Red</option>
-                    <option value="yellow">Yellow</option>
-                    <option value="green">Green</option>
-                    <option value="blue">Blue</option>
-                    <option value="grey">Grey</option>
-                    <option value="pink">Pink</option>
-                  </select>
-                  <br>
-                  <h5 class="card-title">Point System</h5>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Select type of point system</option>
-                    <option value="money">Money</option>
-                    <option value="numbers">Number Value</option>
-                    <option value="stars">Stars</option>
-                  </select>
-                  <br>
+        <div class="card mt-3 border-white mb-3" Style="max-width: 15rem">
+                <img src="assets/images/Vacuum.png" class="centered" alt="Little girl vacuums" id="vacuumPic">
+                <img src="assets/images/Laundry.png" class="centered" alt="young boy doing Laundry" id="laundryPic">
         </div>
-        <br>
-        <div class="d-grid d-md-flex justify-content-md-end">
-        <button type="submit" id="btnSubmit" class="btn btn-danger">submit</button>
+        <div class="d-grid d-md-flex justify-content-md-end mb-3">
+            <button type="submit" id="btnSubmit" class="btn btn-danger">submit</button>
+            </div>
     </div>
+        <br>
+        
         <div class="text-center my-1">Terms & Conditions | Privacy Policy | Support</div>
-      </div>
+      
     </div>
   </div>
 
