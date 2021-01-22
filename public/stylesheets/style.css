@@ -130,6 +130,24 @@ body {
   border: 2px solid black
 }
 
+.hp {
+  position: relative;
+  max-width: 100%;
+  height: auto;
+}
+
+.card-header {
+  width: 103%;
+}
+
+.cardStyle {
+  background-color: #0dcaf0;
+  margin-left: 4rem;
+}
+#profileImage {
+  cursor: pointer;
+}
+
 #profileImage {
   cursor: pointer;
 }
@@ -158,4 +176,40 @@ body {
 #profile-container img {
   width: 150px;
   height: 150px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit !important;
+}
+
+#markup-container {
+  min-height: 500px;
+}
+
+#vacuumPic {
+  width: 35%;
+  height: 35%;
+  margin-top: 5rem;
+}
+
+#laundryPic {
+  width: 40%;
+  height: 40%;
+  margin-left: 2rem;
+}
+#trashPic {
+  width: 30%;
+  height: 30%;
+  float: right;
+}
+#dustingPic {
+  width: 15%;
+  height: 15%;
+  float: right;
+}
+#btnSubmit {
+  width: 8rem;
+  height: 3rem;
+  margin-right: 6rem;
 }

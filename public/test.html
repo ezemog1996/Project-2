@@ -20,6 +20,7 @@
       <a class="navbar-brand" href="#">
         <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
       </a>
+      <a href="#">Sign out</a>
     </div>
   </nav>
   <div class="container mt-3">
@@ -67,7 +68,9 @@
       <div class="col-12 col-sm-12 col-md-9 bg-warning px-4 borderExtraLight">
         <div class="col-12 col-sm-12 col-md-12">
           <div class="row bg-light borderTopSides" id="markup-container" style="border-bottom: 5px solid gold;">
-            {{{ body }}}
+            {{#each children}}
+              {{> childCard}}
+            {{/each}}
           </div>
           <div class="text-center my-1 col-12 col-sm-12 col-md-12">Terms & Conditions | Privacy Policy | Support</div>
         </div>
