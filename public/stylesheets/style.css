@@ -34,11 +34,6 @@ body {
 
 .bg-primary {
   background-color: darkblue !important;
-<<<<<<< HEAD
-  border: 5px solid black;
-}
-
-=======
 }
 
 .black-border {
@@ -61,18 +56,14 @@ body {
   border-bottom: 5px solid black;
 }
 
->>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 .rounded-top {
   border-radius: 25px 25px 0 0 !important;
 }
 
-<<<<<<< HEAD
-=======
 .rounded-bottom {
   border-radius: 0 0 25px 25px !important;
 }
 
->>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 .roundedImportant {
   border-radius: 20px !important;
 }
@@ -108,13 +99,10 @@ body {
   border-bottom: 3px solid white;
 }
 
-<<<<<<< HEAD
-=======
 .info-divs {
   background-color: #87cefa;
 }
 
->>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
 #signUpLogo {
   display: block;
   width: 200px;
@@ -152,8 +140,6 @@ body {
   background-color: white;
   border: 2px solid black
 }
-<<<<<<< HEAD
-=======
 
 .hp {
   position: absolute;
@@ -199,9 +185,6 @@ body {
   width: 150px;
   height: 150px;
 }
-<<<<<<< HEAD
->>>>>>> 85724c4dba3dd9531f27d558f976076ad21551ff
-=======
 
 a {
   text-decoration: none;
@@ -238,10 +221,6 @@ a {
   height: 3rem;
   margin-right: 6rem;
 }
-<<<<<<< HEAD
->>>>>>> 2bdcec1920c9a318747bc59dd1f5a59bda7c251d
-=======
-
 
 .page-todo .tasks {
     background: #fff;
@@ -627,4 +606,3 @@ a {
         font-size: 12px
     }
 }
->>>>>>> 3dd4463606b2d086f4a4dde3d61107c25801c629
