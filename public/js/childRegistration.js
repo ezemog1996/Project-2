@@ -8,7 +8,7 @@ $(document).ready(() => {
     const genderDropdown = $("dropdown#gender");
     const colorSelect = $("select#color");
   
-    // When the submit button is clicked, we validate the name
+    // When the submit button is clicked
     submit.on("click", event => {
       console.log(photo);
       event.preventDefault();

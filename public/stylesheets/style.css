@@ -195,15 +195,18 @@ body {
   width: 100%;
   height: 40%;
 }
-#trashPic {
-  width: 30%;
-  height: 30%;
+#picCard {
   float: right;
 }
+#trashPic {
+  width: 110%;
+  height: 40%;
+  margin-top: 4rem;
+}
 #dustingPic {
-  width: 15%;
-  height: 15%;
-  float: right;
+  width: 110%;
+  height: 40%;
+  margin-top: 2rem;
 }
 #btnSubmit {
   width: 8rem;
