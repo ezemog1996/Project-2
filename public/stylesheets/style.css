@@ -155,6 +155,7 @@ body {
   background-color: #0dcaf0;
   margin-left: 4rem;
 }
+
 #profileImage {
   cursor: pointer;
 }
@@ -184,6 +185,15 @@ body {
   width: 150px;
   height: 150px;
 }
+
+a {
+  text-decoration: none;
+  color: inherit !important;
+}
+
+/* #markup-container {
+  min-height: 500px;
+} */
 
 #vacuumPic {
   width: 100%;
