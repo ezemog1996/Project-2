@@ -191,9 +191,9 @@ a {
   color: inherit !important;
 }
 
-/* #markup-container {
+#markup-container {
   min-height: 500px;
-} */
+}
 
 #vacuumPic {
   width: 100%;
@@ -223,7 +223,6 @@ a {
   height: 3rem;
   margin-right: 33rem;
 }
-
 
 .page-todo .tasks {
     background: #fff;
