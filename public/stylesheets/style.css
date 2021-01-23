@@ -497,7 +497,7 @@ a {
         margin-bottom: 5px
     }
     .page-todo task .time {
-        display: inline-block;
+        
         float: right;
         width: 20%;
         padding: 10px 10px;
@@ -526,7 +526,7 @@ a {
         margin-bottom: 5px
     }
     .page-todo .task .time {
-        display: inline-block;
+        
         float: right;
         width: 25%;
         padding: 10px 10px;
@@ -580,7 +580,7 @@ a {
         margin-bottom: 5px
     }
     .page-todo .task .time {
-        display: inline-block;
+        
         float: right;
         width: 25%;
         padding: 10px 10px;
