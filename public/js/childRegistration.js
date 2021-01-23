@@ -20,7 +20,7 @@ $(document).ready(() => {
         genderDropdown: genderDropdown.val(),
         colorSelect: colorSelect.val()
       };
-      console.log(userData);
+      console.log(childData);
   
       if (!childData.parentName || !childData.colorSelect) {
         return;
