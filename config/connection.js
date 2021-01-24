@@ -1,18 +1,19 @@
 const mysql = require("mysql");
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: " ",
-  database: "striveRite_db",
+    host: "localhost",
+    user: "root",
+    password: "Sap92010",
+    database: "striveRite_db",
 });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("connected as id " + connection.threadId);
+//connect to databasels
+connection.connect(function (err) {
+    if (err) {
+        console.error("error connecting: " + err.stack);
+        return;
+    }
+    console.log("connected as id " + connection.threadId);
 });
 module.exports = connection;
 

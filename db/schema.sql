@@ -17,7 +17,7 @@ CREATE TABLE guardian (
     age VARCHAR (50) NOT NULL,  
     childId INT NOT NULL, 
     PRIMARY KEY (id)
-)
+);
 
 
 CREATE TABLE child (
@@ -39,7 +39,7 @@ CREATE TABLE child (
      assignerId INT NOT NULL,
      taskPriority VARCHAR (6) NOT NULL, 
      startDate DATE NOT NULL, 
-     PRIMARY KEY (id), 
+     PRIMARY KEY (id)
  );
 
 
