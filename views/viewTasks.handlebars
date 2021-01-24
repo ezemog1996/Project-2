@@ -1,0 +1,35 @@
+<nav class="navbar navbar-light bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
+    </a>
+    <a href="#">Sign Out</a>
+  </div>
+</nav>
+
+<div class="container page-todo">
+    <div class="col-sm-7 tasks">
+        <div class="task-list overflow-auto">
+            <h1>{{name}}'s Tasks</h1>
+           </div>
+           <div class="priority high"><span>High Priority</span>
+            {{#each highPriority}}
+            {{> highTaskCard}}
+            {{/each}}
+            </div>
+            <br>
+            <div class="priority medium"><span>Medium Priority</span>
+            {{#each mediumPriority}}
+            {{> mediumTaskCard}}
+            {{/each}}
+            </div>
+            <br>
+            <div class="priority low"><span>Low Priority</span>
+            {{#each lowPriority}}
+            {{> lowTaskCard}}
+            {{/each}}
+            </div>
+            <div class="clearfix"></div>		
+        </div>		
+    </div>
+</div>
