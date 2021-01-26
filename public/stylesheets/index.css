@@ -1,0 +1,26 @@
+#bg-img {
+    width: 100%;
+    height: 100;
+    clip-path: polygon(100% 0, 100% 75%, 49% 100%, 0 77%, 0 0);
+    position: absolute;
+    z-index: -1;
+    opacity: 50%;
+}
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 50%;
+}
+.card {
+    border: 0;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.btn {
+    margin-left: auto;
+    margin-right: auto;
+}
