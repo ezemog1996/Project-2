@@ -9,6 +9,8 @@
   <link href="stylesheets/style.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Luckiest+Guy&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,7 +19,7 @@
       <a class="navbar-brand" href="#">
         <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
       </a>
-      <a href="#">Sign out</a>
+      <a href="/logout" style="color:inherit;">Sign out</a>
     </div>
   </nav>
   <div class="container mt-3">
@@ -38,7 +40,7 @@
                   <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Tasks
                   </a>
                   <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
@@ -47,7 +49,7 @@
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Prizes
                   </a>
                   <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
@@ -72,8 +74,8 @@
           </div>
       <div class="row bg-white borderSides">
         <div class="card mt-3 border-primary mb-3 roundedImportant cardStyle" Style="max-width: 35rem">
-            <div class="card-header d-flex rounded-top bg-primary border-primary text-white">Create a Task</div>
-                <div class="card-body text-black">
+            <div class="card-header d-flex rounded-top text-white">Create a Task</div>
+                <div class="card-body text-white">
                     <h5 class="card-title">Task Title*</h5>
                     <div class="input-group">
                         <input id="task-title" type="text" aria-label="Task Title" class="form-control">

@@ -1,8 +1,9 @@
 // Requiring our models and passport as we've configured it
 const db = require("../models");
 const passport = require("../config/passport");
+const connection = require("../config/connection.js");
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -18,22 +19,26 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
-    db.User.create({
+    console.log("were here");
+    let user = db.User.create({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      userName: req.body.userName,
+      state: req.body.state,
+      city: req.body.city
     })
-      .then(() => {
-        res.redirect(307, "/api/login");
-      })
-      .catch(err => {
-        res.status(401).json(err);
-      });
+
+    if (user) {
+      res.status(200).send(user);
+    } else {
+      res.status(500).send("error encounterd");
+    }
   });
 
   // Route for logging user out
   app.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("/login");
   });
 
   // Route for getting some data about our user to be used client side
@@ -50,4 +55,15 @@ module.exports = function(app) {
       });
     }
   });
+
+  app.post("/api/createTasks", (req, res) => {
+    db.Tasks.create({
+      title: req.body.title,
+
+    })
+
+  })
+
+
+
 };
