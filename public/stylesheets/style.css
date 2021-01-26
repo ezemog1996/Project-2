@@ -198,11 +198,6 @@ h1 {
   height: 150px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit !important;
-}
-
 #markup-container {
   height: 500px;
 }
