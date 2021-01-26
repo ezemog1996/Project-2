@@ -26,10 +26,11 @@ $(document).ready(() => {
   // Otherwise we log any errors
   function loginUser(email, password) {
     $.post("/api/login", {
-      email: email,
-      password: password
-    })
+        email: email,
+        password: password
+      })
       .then(() => {
+        window.location.replace("/parentRegistration");
         // Do something with the response if necessary. Blank for now
         // If there's an error, handle it by throwing up a bootstrap alert
       })
