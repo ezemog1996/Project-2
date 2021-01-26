@@ -4,6 +4,8 @@ $(document).ready(() => {
 
 var searchButton = $("#search");
 
+let item = 1;
+
 searchButton.click(function() {
   var search = $("#inputSearch").val();
 
@@ -38,7 +40,7 @@ searchButton.click(function() {
               <p>ASIN: ${results[i].asin}</p>
               <a target="_blank" href="${results[i].link}" class="btn btn-danger text-white">View on Amazon</a>
               <button id="${i}" class="addToList mt-1">Add to Wish List</button>
-              <button id=${results[i].asin} class="addToCart">Add to Cart</p>
+              <button id=${results[i].asin} class="addToCart mt-1">Add to Cart</p>
             </div>
           </div>
           `
@@ -50,12 +52,19 @@ searchButton.click(function() {
     for (i = 0; i < addToListArray.length; i++) {
       addToListArray[i].addEventListener("click", function(event) {
         console.log(results[parseInt(event.target.id)])
+        $.post("/api/rewards", {
+          image: results[parseInt(event.target)].id,
+          title: results[parseInt(event.target)].title,
+          price: results[parseInt(event.target.id)].price.raw,
+          asin: results[parseInt(event.target.id)].asin,
+          link: results[parseInt(event.target.id)].link
+        }).then(() => {
+          alert("Added to list!");
+        }).catch();
       })
     }
 
     const addToCartArray = document.querySelectorAll(".addToCart");
-
-    let item = 1
 
     for (i = 0; i < addToCartArray.length; i++) {
       addToCartArray[i].addEventListener("click", function(event) {
@@ -77,7 +86,7 @@ searchButton.click(function() {
               <div class="col-12 col-sm-12 col-md-12 px-4">
                 <div class="col-12 col-sm-12 col-md-12">
                   <div class="row overflow-scroll">
-                    <form class="mb-2" id="cart" method="GET" action="https://www.amazon.com/gp/aws/cart/add.html"> 
+                    <form class="mb-2" id="cart" method="GET" target="_blank" action="https://www.amazon.com/gp/aws/cart/add.html"> 
                       <input class="mt-1" type="hidden" name="AWSAccessKeyId" value="Access Key ID" /><br/> 
                       <input class="mt-1" type="hidden" name="AssociateTag" value="Associate Tag" /><br/> 
                       <h5>Products</h5>
@@ -98,6 +107,10 @@ searchButton.click(function() {
         }
       })
     }
+
+
+
+    // const addToListArray
 
   }).catch(function(error){
     alert("We couldn't find what you're looking for");

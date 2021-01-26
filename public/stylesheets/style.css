@@ -14,7 +14,8 @@ form.login {
 
 
 body {
-  background-color: #a1bef3;
+  background: rgb(160,189,244);
+  background: radial-gradient(circle, rgba(160,189,244,1) 22%, rgba(11,88,179,1) 100%);
   font-family: 'Yusei Magic', sans-serif;
   color: midnightblue;
 
@@ -122,6 +123,9 @@ body {
   width: 100%;
   height: auto;
 }
+h1 {
+  font-family: 'Bangers', cursive;
+}
 
 #hp-pic {
   position: static;
@@ -148,11 +152,19 @@ body {
 }
 
 .card-header {
-  width: 103%;
+  width: 105%;
+  margin-left: -13px;
+  text-align: center;
+  font-size: xx-large;
+  font-family: 'Bangers', cursive;
+  background: rgba(14,37,223,1);
+  background: linear-gradient(0deg, rgba(14,37,223,1) 47%, rgba(251,249,246,1) 100%);
+  border: 0;
 }
 
 .cardStyle {
-  background-color: #0dcaf0;
+  background: rgb(13,202,240);
+  background: linear-gradient(0deg, rgba(13,202,240,1) 41%, rgba(14,37,223,1) 81%);
   margin-left: 4rem;
 }
 
@@ -186,11 +198,6 @@ body {
   height: 150px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit !important;
-}
-
 #markup-container {
   height: 500px;
 }
@@ -207,6 +214,7 @@ a {
 }
 #picCard {
   float: right;
+  border: 0;
 }
 #trashPic {
   width: 110%;
@@ -223,6 +231,8 @@ a {
   height: 3rem;
   margin-right: 33rem;
 }
+
+/* Task Sheet */
 
 .page-todo .tasks {
     background: #fff;
