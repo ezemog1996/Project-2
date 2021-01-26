@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Sap92010",
+    "password": "!UCSD_fall@2020!",
     "database": "striveRite_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
