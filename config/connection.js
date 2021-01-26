@@ -20,7 +20,7 @@ const Sequelize = require("sequelize");
 // module.exports = connection;
 
 //connection to MySQL using Sequelize
-const Connection = new Sequelize("striveRite_db", "root", "Sap92010", {
+const Connection = new Sequelize("striveRite_db", "root", "!UCSD_fall@2020!", {
     host: "localhost",
     port: 3000,
     dialect: "mysql",

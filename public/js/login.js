@@ -29,9 +29,10 @@ $(document).ready(() => {
       email: email,
       password: password
     })
-      .then(() => {
+      .then((res) => {
         // Do something with the response if necessary. Blank for now
         // If there's an error, handle it by throwing up a bootstrap alert
+        window.location.replace("/members")
       })
       .catch(handleLoginErr);
   }
