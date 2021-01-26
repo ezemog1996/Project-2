@@ -10,6 +10,8 @@ searchButton.click(function() {
   var search = $("#inputSearch").val();
 
   $.ajax({
+
+
     url: "https://api.rainforestapi.com/request?api_key=C042717A282A49FAAABB8D1663D1E7B7&amazon_domain=amazon.com&type=search&search_term="+ search,
     type: "GET",
     dataType: "JSON",
@@ -102,7 +104,6 @@ searchButton.click(function() {
             </div>
           `
           $("#contentContainer").append(cartMarkup);
-
           item++
         }
       })
@@ -113,12 +114,11 @@ searchButton.click(function() {
     // const addToListArray
 
   }).catch(function(error){
+
+
     alert("We couldn't find what you're looking for");
   })
 },
 
-
-
-
-
 );
+
