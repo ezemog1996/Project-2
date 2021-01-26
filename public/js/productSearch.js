@@ -40,7 +40,7 @@ searchButton.click(function() {
               <p>ASIN: ${results[i].asin}</p>
               <a target="_blank" href="${results[i].link}" class="btn btn-danger text-white">View on Amazon</a>
               <button id="${i}" class="addToList mt-1">Add to Wish List</button>
-              <button id=${results[i].asin} class="addToCart">Add to Cart</p>
+              <button id=${results[i].asin} class="addToCart mt-1">Add to Cart</p>
             </div>
           </div>
           `
@@ -56,7 +56,8 @@ searchButton.click(function() {
           image: results[parseInt(event.target)].id,
           title: results[parseInt(event.target)].title,
           price: results[parseInt(event.target.id)].price.raw,
-          asin: results[parseInt(event.target.id)].asin
+          asin: results[parseInt(event.target.id)].asin,
+          link: results[parseInt(event.target.id)].link
         }).then(() => {
           alert("Added to list!");
         }).catch();
