@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+// const Sequelize = require("sequelize");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -7,7 +8,7 @@ const connection = mysql.createConnection({
     database: "striveRite_db",
 });
 
-//connect to databasels
+//connect to database
 connection.connect(function (err) {
     if (err) {
         console.error("error connecting: " + err.stack);
@@ -15,13 +16,20 @@ connection.connect(function (err) {
     }
     console.log("connected as id " + connection.threadId);
 });
+
 module.exports = connection;
 
-// connection.connect(function (err) {
-//     if (err) {
-//         console.log("error connecting " + err.stack);
-//         return;
+// //connection to MySQL using Sequelize
+// const sequalize = new Sequelize("striveRite_db", "root", "Sap92010", {
+//     host: "localhost",
+//     port: 3000,
+//     dialect: "mysql",
+//     pool: {
+//         max: 5,
+//         min: 0,
+//         idle: 1000
 //     }
-//     console.log("connected as id " + connection.threadId);
 // });
-// module.exports = connection;
+
+
+// module.exports = sequalize;

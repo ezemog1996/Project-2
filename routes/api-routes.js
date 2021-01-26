@@ -51,4 +51,15 @@ module.exports = function (app) {
       });
     }
   });
+
+  app.post("/api/createTasks", (req, res) => {
+    db.Tasks.create({
+      title: req.body.title,
+
+    })
+
+  })
+
+
+
 };
