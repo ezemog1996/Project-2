@@ -2,6 +2,7 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
+
 // Requiring passport as we've configured it
 const passport = require("./config/passport");
 
@@ -15,8 +16,9 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "/public")));
-app.use((req, res) => res.sendFile('index.html'))
+// app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static("public"));
+// app.use((req, res) => res.sendFile('index.html'))
 // We need to use sessions to keep track of our user's login status
 app.use(
   session({
