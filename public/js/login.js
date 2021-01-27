@@ -31,11 +31,11 @@ $(document).ready(() => {
         password: password
       })
       .then(() => {
-        window.location.replace("/parentRegistration");
+        window.location.replace("/dashboard");
 
         // Do something with the response if necessary. Blank for now
         // If there's an error, handle it by throwing up a bootstrap alert
-        window.location.replace("/members")
+        // window.location.replace("/members")
       })
       .catch(handleLoginErr);
   }
