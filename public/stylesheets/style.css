@@ -154,6 +154,11 @@ body {
   height: 70%;
 }
 
+#loginPic {
+  width: 100%;
+  height: 80%;
+}
+
 .background {
   height: 100%;
   width: 100%;
