@@ -31,6 +31,33 @@ module.exports = function (app) {
     res.render("dashboard", hbsObject);
   });
 
+  app.get("/view_tasks", isAuthenticated, (req, res) => {
+    var hbsObject = {
+      name: "Robert",
+      highPriority: [{taskTitle: "Clean Your Room", taskDescription: "Pick up, vacuum, and do the bed.", taskValue: 5, dueDate: "01/27/2021", timeDue: "6:00pm"}],
+      mediumPriority: [{taskTitle: "Clean Your Room", taskDescription: "Pick up, vacuum, and do the bed.", taskValue: 5, dueDate: "01/27/2021", timeDue: "6:00pm"}],
+      lowPriority: [{taskTitle: "Clean Your Room", taskDescription: "Pick up, vacuum, and do the bed.", taskValue: 5, dueDate: "01/27/2021", timeDue: "6:00pm"}]
+    }
+
+    res.render("viewTasks", hbsObject)
+  });
+
+  app.get("/new_task", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/createTask.html"));
+  });
+
+  app.get("/search_rewards", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/productSearch.html"));
+  });
+
+  app.get("/view_rewards", isAuthenticated, (req, res) => {
+    var hbsObject = {
+      prizes: [{image: "https://cdn.vox-cdn.com/thumbor/IKt535q8LMnJDddmLL74TBtzv88=/0x266:1024x949/1280x854/cdn.vox-cdn.com/uploads/chorus_image/image/48942277/N3DS_PokemonSuperMysteryDungeon_MainIllustration_png_jpgcopy.0.0.jpg", title: "100 Cards Poke Style Card Holo EX Full Art : 20 GX + 20 Mega + 1 Energy", price: "$25.00", asin: "B0886GRSZH", link: "https://www.amazon.com/dp/B0886GRSZH"}]
+    }
+
+    res.render("viewPrizes", hbsObject);
+  })
+
   app.get("/register", (req, res) => {
     console.log(path.join(__dirname, "../public/signup.html"));
 
