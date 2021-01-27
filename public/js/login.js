@@ -30,7 +30,7 @@ $(document).ready(() => {
         email: email,
         password: password
       })
-      .then(() => {
+      .then((res) => {
         window.location.replace("/dashboard");
 
         // Do something with the response if necessary. Blank for now
