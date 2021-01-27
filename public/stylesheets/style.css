@@ -111,12 +111,48 @@ body {
   margin-right: auto;
 }
 
+#childOne {
+  color: white;
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  font-size: 100px;
+  background: rgb(240,13,13);
+  background: linear-gradient(0deg, rgba(240,13,13,1) 52%, rgba(254,239,239,1) 100%);
+}
 
+#childTwo {
+  color: white;
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  font-size: 100px;
+  background: rgb(13,38,240);
+  background: linear-gradient(0deg, rgba(13,38,240,1) 52%, rgba(239,242,254,1) 100%);
+}
+
+#childThree {
+  color: white;
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  font-size: 100px;
+  background: rgb(44,187,9);
+  background: linear-gradient(0deg, rgba(44,187,9,1) 52%, rgba(242,254,239,1) 100%);
+}
+#childFour {
+  color: white;
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  font-size: 100px;
+  background: rgb(236,228,9);
+  background: linear-gradient(0deg, rgba(236,228,9,1) 52%, rgba(255,254,234,1) 100%);
+}
 #regLogo {
   display: block;
   width: 125px;
 }
-
+#signupPic {
+  width: 100%;
+  height: 70%;
+}
 
 .background {
   height: 100%;
