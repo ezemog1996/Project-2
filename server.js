@@ -18,6 +18,11 @@ app.use(express.urlencoded({
 app.use(express.json());
 // app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static("public"));
+
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main"}));
+app.set("view engine", "handlebars");
 // app.use((req, res) => res.sendFile('index.html'))
 // We need to use sessions to keep track of our user's login status
 app.use(
