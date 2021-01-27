@@ -1,35 +1,74 @@
 <nav class="navbar navbar-light bg-white">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
-    </a>
-    <a href="#">Sign Out</a>
-  </div>
-</nav>
-
-<div class="container page-todo">
-    <div class="col-sm-7 tasks">
-        <div class="task-list overflow-auto">
-            <h1>{{name}}'s Tasks</h1>
-           </div>
-           <div class="priority high"><span>High Priority</span>
-            {{#each highPriority}}
-            {{> highTaskCard}}
-            {{/each}}
-            </div>
-            <br>
-            <div class="priority medium"><span>Medium Priority</span>
-            {{#each mediumPriority}}
-            {{> mediumTaskCard}}
-            {{/each}}
-            </div>
-            <br>
-            <div class="priority low"><span>Low Priority</span>
-            {{#each lowPriority}}
-            {{> lowTaskCard}}
-            {{/each}}
-            </div>
-            <div class="clearfix"></div>		
-        </div>		
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
+      </a>
+      <a href="/logout" style="color:inherit;">Sign out</a>
     </div>
-</div>
+  </nav>
+  
+  <div class="container page-todo mt-5">
+
+      <div class="col-sm-7 tasks">
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+          <div class="container-fluid">
+            <div class="col-4 col-sm-4 col-md-4">
+              <img id="regLogo" src="./assets/images/Strive Rite.png">
+              <h6>responsibility the fun way</h6>
+          </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tasks
+                  </a>
+                  <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">View Tasks</a></li>
+                    <li><a class="dropdown-item" href="#">Assign New Task</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Prizes
+                  </a>
+                  <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">View Prizes</a></li>
+                    <li><a class="dropdown-item" href="#">Add New Prize</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="page-todo ms-3">
+          <div class="tasks">
+              <div class="task-list overflow-auto">
+                  <h1>{{ name }}'s Tasks</h1>
+                  <div class="priority high"><span>high priority</span></div>
+                  {{#each highPriority}}
+                  {{> highTaskCard}}
+                  {{/each}}
+                  <br>
+                  <div class="priority medium"><span>medium priority</span></div>
+                  {{#each mediumPriority}}
+                  {{> mediumTaskCard}}
+                  {{/each}}
+                  <br>
+                  <div class="priority low"><span>low priority</span></div>
+                  {{#each lowPriority}}
+                  {{> lowTaskCard}}
+                  {{/each}}
+                  <div class="clearfix"></div>		
+              </div>		
+          </div>
+          </div>
+      </div>
+  </div>
+
+  <script type="text/javascript" src="./js/viewTasks.js"></script>

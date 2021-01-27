@@ -25,35 +25,56 @@ $(document).ready(() => {
     // If we have an email and password, run the signUpUser function
 
     signUpUser(
-      userData.name,
-      userData.email,
-      userData.state,
-      userData.city,
-      userData.password
-    );
+        userData.name,
+        userData.email,
+        userData.state,
+        userData.city,
+        userData.password
+      )
+      .then((res) => {
+        console.log("res: ", res);
+        window.location.href = "/login";
+        nameInput.val("");
+        emailInput.val("");
+        stateSelect.val("Select your state");
+        cityInput.val("");
+        passwordInput.val("");
+        // window.location.replace("/login");
+        // If there's an error, handle it by throwing up a bootstrap alert
+      })
+      .catch(handleLoginErr);
 
-    nameInput.val("");
-    emailInput.val("");
-    stateSelect.val("Select your state");
-    cityInput.val("");
-    passwordInput.val("");
   });
 
   // Does a post to the signup route. If successful, we are redirected to the members page
   // Otherwise we log any errors
   function signUpUser(name, email, state, city, password) {
-    $.post("/api/signup", {
-      name: name,
-      email: email,
-      state: state,
-      city: city,
-      password: password
+    // $.post("/api/signup", {
+    //     userName: name,
+    //     email: email,
+    //     state: state,
+    //     city: city,
+    //     password: password
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     window.location.href = "/login";
+    //     // window.location.replace("/login");
+    //     // If there's an error, handle it by throwing up a bootstrap alert
+    //   })
+    // .catch(handleLoginErr);
+    return $.ajax({
+      url: "/api/signup",
+      method: "POST",
+      data: {
+        userName: name,
+        email: email,
+        state: state,
+        city: city,
+        password: password
+      }
     })
-      .then(() => {
-        window.location.replace("/register-parent");
-        // If there's an error, handle it by throwing up a bootstrap alert
-      })
-      .catch(handleLoginErr);
+
   }
 
   function handleLoginErr(err) {

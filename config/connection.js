@@ -1,27 +1,16 @@
-const mysql = require("mysql");
+const Sequelize = require("sequelize");
 
-const connection = mysql.createConnection({
+//connection to MySQL using Sequelize
+const Connection = new Sequelize("striveRite_db", "root", "!UCSD_fall@2020!", {
     host: "localhost",
-    user: "root",
-    password: " ",
-    database: "striveRite_db",
-});
-
-connection.connect((err) => {
-    if (err) {
-        throw err;
+    port: 3000,
+    dialect: "mysql",
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 1000
     }
-    console.log("MySQL Connected..");
 });
-module.exports = connection;
 
 
-
-// connection.connect(function (err) {
-//     if (err) {
-//         console.log("error connecting " + err.stack);
-//         return;
-//     }
-//     console.log("connected as id " + connection.threadId);
-// });
-// module.exports = connection;
+module.exports = Connection;
