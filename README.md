@@ -20,6 +20,10 @@ Link to App: https://ezemog1996.github.io/Strive Rite/
 
 Strive Rite is a task and point management system for parents and their children. The backend was built using Node.js and Sequelize. Handlebars was used to render some of the HTML. When parents sign themselves and their children up and can easily assign any task with a point value to any child. When a child completes a task, the points are added to their total so that they may redeem rewards. Rewards are found using Rainforest API and can be assigned a point worth when added by the parent to the child's wishlist.
 
+![StriveRiteLogin](https://user-images.githubusercontent.com/71483178/106672468-148cf980-657e-11eb-97a0-3583b8528b07.png)
+
+![StriveRiteTasks](https://user-images.githubusercontent.com/71483178/106672475-18208080-657e-11eb-9364-1151dc2070ad.png)
+
 ### Installation
 
 Go to https://striverite.herokuapp.com/
