@@ -4,17 +4,17 @@ Link to App: https://ezemog1996.github.io/Strive Rite/
 
 ## Table of Contents
 
-[Description](https://github.com/ezemog1996/Strive Rite#description)
+[Description](https://github.com/ezemog1996/StriveRite#description)
 
-[Installation](https://github.com/ezemog1996/Strive Rite#installation)
+[Installation](https://github.com/ezemog1996/StriveRite#installation)
 
-[Usage](https://github.com/ezemog1996/Strive Rite#usage)
+[Usage](https://github.com/ezemog1996/StriveRite#usage)
 
-[Tests](https://github.com/ezemog1996/Strive Rite#tests)
+[Tests](https://github.com/ezemog1996/StriveRite#tests)
 
-[License](https://github.com/ezemog1996/Strive Rite#license)
+[License](https://github.com/ezemog1996/StriveRite#license)
 
-[Questions](https://github.com/ezemog1996/Strive Rite#questions)
+[Questions](https://github.com/ezemog1996/StriveRite#questions)
 
 ### Description
 
