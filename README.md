@@ -63,7 +63,10 @@ Go to htts://striverite.herokuapp.com/ and click "Get Started". If you do not ha
 
 ### Questions
 
-GitHub Profiles: https://github.com/ezemog1996 https://github.com/RobOrtiz https://github.com/AustinPerez760 https://github.com/mitchm23
+GitHub Profiles: https://github.com/ezemog1996
+                 https://github.com/RobOrtiz
+                 https://github.com/AustinPerez760
+                 https://github.com/mitchm23
 
 Emails: enrique_g_gomez@hotmail.com
 
