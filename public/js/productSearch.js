@@ -6,6 +6,8 @@ $(document).ready(() => {
 
   let item = 1;
 
+  let loadingInterval;
+
   searchButton.click(function() {
     var search = $("#inputSearch").val();
 
@@ -13,9 +15,15 @@ $(document).ready(() => {
       url: "https://api.rainforestapi.com/request?api_key=C042717A282A49FAAABB8D1663D1E7B7&amazon_domain=amazon.com&type=search&search_term="+ search,
       type: "GET",
       dataType: "JSON",
-    }).then(function(data){
-
-      let results = [];
+      beforeSend: function() {
+        i = 0;
+        loadingInterval = setInterval(function() {
+          i = ++i % 4;
+          $("#markup-container").html("loading" + Array(i+1).join("."));
+        }, 500)
+      },
+      success: function(data) {
+        let results = [];
 
       for (i = 0; i < data.search_results.length; i++) {
         if (data.search_results[i].price) {
@@ -175,11 +183,10 @@ $(document).ready(() => {
           }
         })
       }
-
-
-
-      // const addToListArray
-
+      },
+      complete: function() {
+        clearInterval(loadingInterval)
+      }
     }).catch(function(error){
 
 
