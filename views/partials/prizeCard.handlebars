@@ -3,11 +3,13 @@
     <div class="card-body">
         <h5 class="card-title">{{title}}</h5>
         <h5 style="color:red;">{{points}} points</h5>
+        {{#if isParent}}
         <h5><span class="{{childId}}">{{childName}}</span> has {{childPoints}} points</h5>
         <p class="card-text">Price: {{price}}</p>
         <p>ASIN: {{asin}}</p>
         <a target="_blank" href="{{link}}" class="btn btn-danger text-white">View on Amazon</a>
         <button id="{{id}}" data-points="{{points}}" data-id="{{childId}}" type="button" class="btn btn-primary cash mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Cash Points for this</button>
         <button id="{{asin}}" class="addToCart mt-1">Add to Cart</p>
+        {{/if}}
     </div>
 </div>
