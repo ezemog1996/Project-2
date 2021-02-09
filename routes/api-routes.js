@@ -9,11 +9,17 @@ module.exports = function (app) {
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
     // Sending back a password, even a hashed password, isn't a good idea
-    res.json(req.user);
-    // res.json({
-    //   email: req.user.email,
-    //   id: req.user.id
-    // });
+    if (!req.user.parentId) {
+      db.Child.findAll({attribute: ['id'], where: {parentid: req.user.id}}).then(function(results) {
+        res.json(
+          {
+            children: results
+          }
+        )
+      })
+    } else {
+      res.json({ children: "Move along!" })
+    }
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -21,19 +27,36 @@ module.exports = function (app) {
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
     console.log("were here");
-    let user = db.User.create({
+    let parent = db.Parent.create({
       email: req.body.email,
       password: req.body.password,
-      userName: req.body.userName,
+      name: req.body.name,
       state: req.body.state,
       city: req.body.city
+    }).then(() => {
+      res.status(200).send(parent);
+    }).catch((err) => {
+      res.status(500).send(err)
     })
+  });
 
-    if (user) {
-      res.status(200).send(user);
-    } else {
-      res.status(500).send("error encounterd");
-    }
+  app.post("/api/child_registration", async (req, res) => {
+    const children = JSON.parse(req.body.data);
+    let keepTrackNumber = 0;
+    children.forEach(item => {
+      db.Child.create({
+        parentId: req.user.id,
+        name: item.name,
+        username: item.username,
+        password: item.password,
+        birthday: item.birthday,
+        gender: item.gender,
+        color: item.color
+      }).then(function() {
+        keepTrackNumber++;
+        if (keepTrackNumber === children.length) res.status(200).send(children);
+      })
+    })
   });
 
   // Route for logging user out
@@ -57,12 +80,126 @@ module.exports = function (app) {
     }
   });
 
-  app.post("/api/createTasks", (req, res) => {
-    db.Tasks.create({
-      title: req.body.title,
+  app.get("/api/all_children", (req, res) => {
+    db.Child.findAll({attributes: ['username']})
+      .then(result => {
+        res.json(result)
+      })
+  });
 
+  app.get("/api/all_parents"), (req, res) => {
+    db.Parent.findAll({attributes: ["email"]})
+      .then(result => {
+        res.json(result);
+      })
+  }
+
+  app.get("/api/get_children", (req, res) => {
+    db.Child.findAll({attributes: ['id', 'name', 'username'], where: {parentId: req.user.id}}).then(function(result) {
+      res.json(result)
     })
+  })
 
+  app.post("/api/create_task", (req, res) => {
+    let task = db.Task.create(req.body).then(function() {
+      db.Child.findOne({where: {id: req.body.childId}}).then(function(result) {
+        const newAssigned = result.dataValues.tasksAssigned + 1;
+        db.Child.update({tasksAssigned: newAssigned}, {
+          where: {
+            id: req.body.childId
+          }
+        })
+      })
+    });
+
+    if (task) {
+      res.status(200).send(task);
+    } else {
+      res.status(500).send("error encountered");
+    }
+  })
+
+  app.put("/api/complete_task", (req, res) => {
+    db.Task.update({completed: req.body.completed}, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(result) {
+      res.json(result);
+    })
+  })
+
+  app.delete("/api/approve_task/:id", (req, res) => {
+    db.Task.findOne({where: {
+      id: req.params.id
+    }}).then(function(result) {
+      db.Child.findOne({where: {
+        id: result.dataValues.childId
+      }}).then(function(data) {
+        console.log(data.dataValues)
+        const newPoints = data.dataValues.points + result.dataValues.points;
+        const newCompleted = data.dataValues.tasksCompleted + 1;
+        db.Child.update({points: newPoints, tasksCompleted: newCompleted}, {
+          where: {
+            id: data.dataValues.id
+          }
+        }).then(function() {
+          db.Task.destroy({
+            where: {
+              id: req.params.id
+            }
+          }).then(function(r) {
+            res.json(r);
+          })
+        })
+      })
+    })
+    
+  })
+
+  app.put("/api/reject_task", (req, res) => {
+    db.Task.update({completed: req.body.completed}, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(results) {
+      res.json(results)
+    })
+  })
+
+  app.post("/api/add_reward", (req, res) => {
+    let reward = db.Reward.create(req.body)
+    if (reward) {
+      res.status(200).send(reward);
+    } else {
+      res.status(500).send("error encountered");
+    }
+  })
+
+  app.delete("/api/cash_points/:id/:childId/:points", (req, res) => {
+    db.Child.findOne({where: {id: req.params.childId}})
+      .then(function(result) {
+        console.log(result)
+        if (result.dataValues.points >= parseInt(req.params.points)) {
+          db.Child.update(
+            {
+              points: result.points - parseInt(req.params.points)
+            },
+            {
+              where: {
+                id: req.params.childId
+              }
+            }
+          ).then(() => {
+            db.Reward.destroy({where: {id: req.params.id}})
+              .then(() => {
+                res.send("Success!")
+              })
+          })
+        } else {
+          res.send("They don't have enough points for this item!")
+        }
+      })
   })
 
 };

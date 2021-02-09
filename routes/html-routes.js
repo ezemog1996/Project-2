@@ -1,5 +1,7 @@
 // Requiring path to so we can use relative routes to our HTML files
+const { decodeBase64 } = require("bcryptjs");
 const path = require("path");
+const db = require("../models");
 
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -10,7 +12,7 @@ module.exports = function (app) {
   app.get("/login", (req, res) => {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.redirect("/dashboard");
     }
 
     debugger;
@@ -21,49 +23,242 @@ module.exports = function (app) {
 
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
+  app.get("/child_registration", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/childRegistration.html"));
+  })
+
   app.get("/dashboard", isAuthenticated, (req, res) => {
-
-    var hbsObject = {
-      children: [{name: "Robert Ortiz", totalPoints: 7, completeCount: 2, taskCount: 10}, {name: "Austin Perez", totalPoints: 3, completeCount: 1, taskCount: 10}, {name: "Enrique Gomez", totalPoints: 0, completeCount: 0, taskCount: 10}]
-    }
-
-    console.log("members initiated");
-    res.render("dashboard", hbsObject);
+    if (req.user.parentId) res.render("noAccessPage");
+    db.Child.findAll({where: {parentId: req.user.id}}).then(function(results) {
+      var dashboardObject = {
+        children: []
+      }
+      results.forEach(item => dashboardObject.children.push(item.dataValues));
+      res.render("dashboard", dashboardObject);
+    })
+    
   });
 
   app.get("/view_tasks", isAuthenticated, (req, res) => {
-    var hbsObject = {
-      name: "Robert",
-      highPriority: [{taskTitle: "Clean Your Room", taskDescription: "Pick up, vacuum, and do the bed.", taskValue: 5, dueDate: "01/27/2021", timeDue: "6:00pm"}],
-      mediumPriority: [{taskTitle: "Clean Your Room", taskDescription: "Pick up, vacuum, and do the bed.", taskValue: 5, dueDate: "01/27/2021", timeDue: "6:00pm"}],
-      lowPriority: [{taskTitle: "Clean Your Room", taskDescription: "Pick up, vacuum, and do the bed.", taskValue: 5, dueDate: "01/27/2021", timeDue: "6:00pm"}]
-    }
+    if (req.user.parentId) {
+      const name = req.user.name;
+      const points = req.user.points;
+      db.Task.findAll({where: {childId: req.user.id}}).then(function(results) {
+        let highPriority = [];
+        let mediumPriority = [];
+        let lowPriority = [];
+        for (i = 0; i < results.length; i++) {
+          let due = `${results[i].dataValues.due}`
+          console.log(due)
+          results[i].dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
+          results[i].dataValues.time = due.split(" ")[4];
+          if (results[i].dataValues.priority === 3) {
+            highPriority.push(results[i].dataValues);
+          } else if (results[i].dataValues.priority === 2) {
+            mediumPriority.push(results[i].dataValues);
+          } else {
+            lowPriority.push(results[i].dataValues);
+          }
+        }
 
-    res.render("viewTasks", hbsObject)
+        const sortedHigh = highPriority.sort(function(a,b) {
+          return new Date(a.due) - new Date(b.due);
+        });
+
+        const sortedMedium = mediumPriority.sort(function(a,b) {
+          return new Date(a.due) - new Date(b.due);
+        });
+
+        const sortedLow = lowPriority.sort(function(a,b) {
+          return new Date(a.due) - new Date(b.due);
+        });
+
+        const hbsObject = {
+          isParent: false,
+          children: [{
+            name,
+            points,
+            sortedHigh,
+            sortedMedium,
+            sortedLow
+          }]
+        }
+        res.render("viewTasks", hbsObject)
+      })
+    } else {
+      let children = [];
+      db.Child.findAll({where: {parentId: req.user.id}}).then(function(results) {
+        console.log(results[0].name)
+        for (i = 0; i < results.length; i++) {
+          let name = results[i].name;
+          let points = results[i].points;
+          let highPriority = [];
+          let mediumPriority = [];
+          let lowPriority = [];
+          db.Task.findAll({where: {childId: results[i].dataValues.id}}).then(function(res) {
+            for (j = 0; j < res.length; j++) {
+              let due = `${res[j].dataValues.due}`
+              res[j].dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
+              res[j].dataValues.time = due.split(" ")[4];
+              if (res[j].dataValues.priority === 3) {
+                highPriority.push(res[j].dataValues);
+              } else if (res[j].dataValues.priority === 2) {
+                mediumPriority.push(res[j].dataValues);
+              } else {
+                lowPriority.push(res[j].dataValues);
+              }
+            }
+
+            const sortedHigh = highPriority.sort(function(a,b) {
+              return new Date(a.due) - new Date(b.due);
+            });
+
+            const sortedMedium = mediumPriority.sort(function(a,b) {
+              return new Date(a.due) - new Date(b.due);
+            });
+
+            const sortedLow = lowPriority.sort(function(a,b) {
+              return new Date(a.due) - new Date(b.due);
+            });
+            
+            let taskList = {
+              name,
+              points,
+              sortedHigh,
+              sortedMedium,
+              sortedLow
+            }
+
+            children.push(taskList)
+
+          })
+        }
+        const hbsObject = {
+          isParent: true,
+          children
+        }
+        res.render("viewTasks", hbsObject)
+      })
+    }
   });
 
+  app.get("/pending_tasks", isAuthenticated, (req,res) => {
+    if (req.user.parentId) {
+      res.render("noAccessPage")
+    } else {
+      let children = [];
+      db.Child.findAll({where: {parentId: req.user.id}}).then(function(results) {
+        console.log(results[0].name)
+        for (i = 0; i < results.length; i++) {
+          let name = results[i].name;
+          let points = results[i].points;
+          let highPriority = [];
+          let mediumPriority = [];
+          let lowPriority = [];
+          db.Task.findAll({where: {childId: results[i].dataValues.id}}).then(function(res) {
+            for (j = 0; j < res.length; j++) {
+              let due = `${res[j].dataValues.due}`
+              res[j].dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
+              res[j].dataValues.time = due.split(" ")[4];
+              if (res[j].dataValues.priority === 3) {
+                highPriority.push(res[j].dataValues);
+              } else if (res[j].dataValues.priority === 2) {
+                mediumPriority.push(res[j].dataValues);
+              } else {
+                lowPriority.push(res[j].dataValues);
+              }
+            }
+
+            const sortedHigh = highPriority.sort(function(a,b) {
+              return new Date(a.due) - new Date(b.due);
+            });
+
+            const sortedMedium = mediumPriority.sort(function(a,b) {
+              return new Date(a.due) - new Date(b.due);
+            });
+
+            const sortedLow = lowPriority.sort(function(a,b) {
+              return new Date(a.due) - new Date(b.due);
+            });
+            
+            let taskList = {
+              name,
+              points,
+              sortedHigh,
+              sortedMedium,
+              sortedLow
+            }
+
+            children.push(taskList)
+
+          })
+        }
+        const hbsObject = {
+          children
+        }
+        res.render("pendingTasks", hbsObject)
+      })
+    }
+  })
+
   app.get("/new_task", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/createTask.html"));
+    if (req.user.parentId) {
+      res.render("noAccessPage");
+    } else {
+      res.sendFile(path.join(__dirname, "../public/createTask.html"));
+    }
   });
 
   app.get("/search_rewards", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/productSearch.html"));
+    if (req.user.parentId) {
+      res.render("noAccessPage")
+    } else {
+      res.sendFile(path.join(__dirname, "../public/productSearch.html"));
+    }
   });
 
   app.get("/view_rewards", isAuthenticated, (req, res) => {
-    var hbsObject = {
-      prizes: [{image: "https://cdn.vox-cdn.com/thumbor/IKt535q8LMnJDddmLL74TBtzv88=/0x266:1024x949/1280x854/cdn.vox-cdn.com/uploads/chorus_image/image/48942277/N3DS_PokemonSuperMysteryDungeon_MainIllustration_png_jpgcopy.0.0.jpg", title: "100 Cards Poke Style Card Holo EX Full Art : 20 GX + 20 Mega + 1 Energy", price: "$25.00", asin: "B0886GRSZH", link: "https://www.amazon.com/dp/B0886GRSZH"}]
-    }
+    if (req.user.parentId) {
+      prizes = [];
+      db.Reward.findAll({where: {childId: req.user.id}}).then((result) => {
+        result.forEach(item => prizes.push(item.dataValues))
+        const hbsObject = {
+          isParent: false,
+          prizes
+        }
+        res.render("viewPrizes", hbsObject);
+      })
+    } else {
+      db.Child.findAll({where: {parentId: req.user.id}}).then(function(result) {
+        prizes = [];
+        result.forEach(item => {
+          db.Reward.findAll({where: {childId: item.dataValues.id}}).then(function(results) {
+            result.forEach(child => {
+              results.forEach(reward => {
+                if (child.id === reward.childId) {
+                  reward.dataValues.childName = child.name;
+                  reward.dataValues.childPoints = child.points
+                }
+              })
+            })
+            results.forEach(reward => prizes.push(reward.dataValues))
+          })
+        })
 
-    res.render("viewPrizes", hbsObject);
+        const hbsObject = {
+          isParent: true,
+          prizes
+        }
+        res.render("viewPrizes", hbsObject)
+      })
+    }
   })
 
   app.get("/register", (req, res) => {
-    console.log(path.join(__dirname, "../public/signup.html"));
 
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/members");
+      res.redirect("/dashboard");
     }
     res.sendFile(path.join(__dirname, "../public/signup.html"));
   });

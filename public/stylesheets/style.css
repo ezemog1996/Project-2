@@ -21,6 +21,10 @@ body {
 
 }
 
+.hide {
+  display: none;
+}
+
 .bg-warning {
   background-color: khaki !important;
 }
@@ -360,7 +364,7 @@ h1 {
 }
 
 .page-todo .task .time .date {
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 5px
 }
 

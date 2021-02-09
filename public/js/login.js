@@ -26,12 +26,18 @@ $(document).ready(() => {
   // Otherwise we log any errors
   function loginUser(email, password) {
     $.post("/api/login", {
-
         email: email,
         password: password
       })
       .then((res) => {
-        window.location.replace("/dashboard");
+        console.log(res)
+        if (!res.children.length) {
+          window.location.replace("/child_registration");
+        } else if (res.children === "Move along!") {
+          window.location.replace("/view_tasks")
+        } else {
+          window.location.replace("/dashboard");
+        }
 
         // Do something with the response if necessary. Blank for now
         // If there's an error, handle it by throwing up a bootstrap alert

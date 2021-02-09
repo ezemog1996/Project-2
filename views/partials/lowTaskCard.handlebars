@@ -1,15 +1,23 @@
-<div class="task low">
+<div class="task low low-task">
     <div class="desc">
-        <div class="title">{{taskTitle}}</div>
-        <div>{{taskDescription}}</div>
-        <div class="points">{{taskValue}} points</div>
+        <div class="title">{{title}}</div>
+        <div>{{description}}</div>
+        <div class="points">{{points}} points</div>
+        {{#if completed}}
+        <button id="{{id}}" class="btn btn-danger incomplete">Mark Incomplete</button>
+        {{/if}}
     </div>
     <div class="time">
-        <div class="date">{{dueDate}}</div>
-        <div>{{timeDue}}</div>
+        <div class="date">{{date}}</div>
+        <div>{{time}}</div>
+        {{#if completed}}
+        <button id="{{id}}" class="btn btn-success confirm">Confirm</button>
+        {{/if}}
+        {{#unless completed}}
         <div class="form-check">
-            <label class="form-check-label" for="flexCheckDefault">completed</label>
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+            <label class="form-check-label" for="flexCheckDefault">complete</label>
+            <input class="form-check-input" type="checkbox" data-id="{{id}}" value="true" id="flexCheckDefault"/>
         </div>
+        {{/unless}}
     </div>
 </div>
