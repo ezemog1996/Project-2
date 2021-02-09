@@ -1,38 +1,43 @@
 $(document).ready(() => {
     console.log("Ready!");
 
-    const titleInput = $("#task-title");
-    const descriptionInput = ("#task-description");
-    const date = ("#date");
-    const time = ("#time");
-    const points = ("#points");
-    const priority = ("#priority");
-    const assignedBy = ("#assigned-by");
+    $.get("/api/get_children", function(data) {
+        for (i = 0; i < data.length; i++) {
+            $("#child").append(`<option value="${data[i].id}">${data[i].name}</option>`)
+        }
+    });
 
-    document.querySelector("#saveTask").addEventListener("click", event => {
-        event.preventDefalult();
+    const titleInput = $("#task-title");
+    const descriptionInput = $("#task-description");
+    const date = $("#date");
+    const time = $("#time");
+    const points = $("#points");
+    const priority = $("#priority");
+    const assignedTo = $("#child");
+
+    document.querySelector("#btnSave").addEventListener("click", event => {
+        event.preventDefault();
         const taskData = {
+            childId: assignedTo.val(),
             title: titleInput.val().trim(),
             description: descriptionInput.val().trim(),
-            date: date.val().trim(),
-            time: time.val().trim(),
+            due: date.val().trim() + "T" + time.val(),
             points: points.val().trim(),
-            priority: priority.val().trim(),
-            assignedBy: assignedBy.val().trim()
+            priority: priority.val(),
         };
+        console.log(taskData);
 
-        if (!taskData.title || !taskData.description || !taskData.date || !taskData.time || !taskData.points || !tasksData.priority || !taskData.assignmedBy) {
+        if (!taskData.childId || !taskData.title || !taskData.description || !taskData.due || !taskData.points || !taskData.priority) {
             return
         }
 
         saveTask(
+            taskData.childId,
             taskData.title,
             taskData.description,
-            taskData.date,
-            taskData.time,
+            taskData.due,
             taskData.points,
             taskData.priority,
-            taskData.assignedBy
         );
         titleInput.val("");
         descriptionInput.val("");
@@ -40,19 +45,18 @@ $(document).ready(() => {
         time.val("Select time");
         points.val("");
         priority.val("Select Priority Level");
-        assignedBy.val("");
+        assignedTo.val("");
 
     });
 
-    function saveTask(title, description, date, time, points, priority, assignedBy) {
-        $.post("/api/create-task", {
+    function saveTask(childId, title, description, due, points, priority) {
+        $.post("/api/create_task", {
+            childId,
             title,
             description,
-            date,
-            time,
+            due,
             points,
-            priority,
-            assignedBy
+            priority
         })
           .then(() => {
               console.log("Task added!");

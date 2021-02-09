@@ -28,7 +28,8 @@
                   Tasks
                 </a>
                 <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
-                  <li><a class="dropdown-item" href="/view_tasks">View Tasks</a></li>
+                  <li><a class="dropdown-item" href="/pending_tasks">View Tasks Awaiting Approval</a></li>
+                  <li><a class="dropdown-item" href="/view_tasks">View Incomplete Tasks</a></li>
                   <li><a class="dropdown-item" href="/new_task">Assign New Task</a></li>
                 </ul>
               </li>
@@ -50,15 +51,13 @@
   <div class="row">
     <div class="col-12 col-sm-12 col-md-9 bg-warning px-4 borderExtraLight">
       <div class="col-12 col-sm-12 col-md-12">
-        <div class="row bg-light borderTopSides" id="markup-container" style="border-bottom: 5px solid gold;">
+        <div class="row bg-light borderTopSides overflow-auto" id="markup-container" style="border-bottom: 5px solid gold;">
           {{#each children}}
             {{> childCard}}
           {{/each}}
         </div>
-        <div class="text-center my-1 col-12 col-sm-12 col-md-12">Terms & Conditions | Privacy Policy | Support</div>
       </div>
+      <div class="text-center my-1 col-12 col-sm-12 col-md-12">Terms & Conditions | Privacy Policy | Support</div>
     </div>
   </div>
 </div>
-
-<script src="./js/dashboard.js"></script>

@@ -32,7 +32,7 @@ $(document).ready(() => {
         userData.password
       )
       .then((res) => {
-        console.log("res: ", res);
+        console.log(res);
         window.location.href = "/login";
         nameInput.val("");
         emailInput.val("");
@@ -67,7 +67,7 @@ $(document).ready(() => {
       url: "/api/signup",
       method: "POST",
       data: {
-        userName: name,
+        name: name,
         email: email,
         state: state,
         city: city,

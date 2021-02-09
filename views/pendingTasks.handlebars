@@ -1,0 +1,86 @@
+<nav class="navbar navbar-light bg-white">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/images/Strive Rite.png" alt="Strive Rite Logo"width="150" class="height-auto">
+      </a>
+      <a href="/logout" style="color:inherit;">Sign out</a>
+    </div>
+  </nav>
+  
+  <div class="container page-todo mt-5">
+
+      <div class="col-sm-7 tasks">
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+          <div class="container-fluid">
+            <div class="col-4 col-sm-4 col-md-4">
+              <img id="regLogo" src="./assets/images/Strive Rite.png">
+              <h6>responsibility the fun way</h6>
+          </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Tasks
+                  </a>
+                  <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="/pending_tasks">View Tasks Awaiting Approval</a></li>
+                    <li><a class="dropdown-item" href="/view_tasks">View Incomplete Tasks</a></li>
+                    <li><a class="dropdown-item" href="/new_task">Assign New Task</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Prizes
+                  </a>
+                  <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="/search_rewards">Search Rewards</a></li>
+                    <li><a class="dropdown-item" href="/view_rewards">View Saved Rewards</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        
+          <div class="page-todo ms-3">
+            {{#each children}}
+            <div class="tasks">
+                <div class="task-list">
+                    <h1>{{ name }}'s Completed Tasks</h1>
+                    <p>Total Points: {{points}}</p>
+                    <div class="priority high"><span>high priority</span></div>
+                    {{#each sortedHigh}}
+                    {{#if completed}}
+                    {{> highTaskCard}}
+                    {{/if}}
+                    {{/each}}
+                    <br>
+                    <div class="priority medium"><span>medium priority</span></div>
+                    {{#each sortedMedium}}
+                    {{#if completed}}
+                    {{> mediumTaskCard}}
+                    {{/if}}
+                    {{/each}}
+                    <br>
+                    <div class="priority low"><span>low priority</span></div>
+                    {{#each sortedLow}}
+                    {{#if completed}}
+                    {{> lowTaskCard}}
+                    {{/if}}
+                    {{/each}}
+                    <div class="clearfix"></div>		
+                </div>		
+            </div>
+            {{/each}}
+          </div>
+        
+      </div>
+  </div>
+
+  <script type="text/javascript" src="./js/approveTask.js"></script>

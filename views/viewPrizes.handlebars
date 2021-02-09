@@ -20,18 +20,27 @@
               </button>
               <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
+                  {{#if isParent}}
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
                   </li>
+                  {{/if}}
+                  {{#if isParent}}
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Tasks
                     </a>
                     <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="/view_tasks">View Tasks</a></li>
+                      <li><a class="dropdown-item" href="/pending_tasks">View Tasks Awaiting Approval</a></li>
+                      <li><a class="dropdown-item" href="/view_tasks">View Incomplete Tasks</a></li>
                       <li><a class="dropdown-item" href="/new_task">Assign New Task</a></li>
                     </ul>
                   </li>
+                  {{/if}}
+                  {{#unless isParent}}
+                  <li class="nav-item"><a class="nav-link active" href="/view_tasks">View Tasks</a></li>
+                  {{/unless}}
+                  {{#if isParent}}
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Prizes
@@ -41,6 +50,10 @@
                       <li><a class="dropdown-item" href="/view_rewards">View Saved Rewards</a></li>
                     </ul>
                   </li>
+                  {{/if}}
+                  {{#unless isParent}}
+                    <li class="nav-item"><a class="nav-link active" href="/view_rewards">View Rewards</a></li>
+                  {{/unless}}
                 </ul>
               </div>
             </div>
@@ -66,6 +79,24 @@
                     {{#each prizes}}
                     {{> prizeCard}}
                     {{/each}}
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <h6 id="cash?"></h6>
+                            <h6 id="losePoints"></h6>
+                          </div>
+                          <div class="modal-footer">
+                            <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="confirm" type="button" class="btn btn-primary">Confirm</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
