@@ -1,22 +1,22 @@
 <div class="task high high-task">
     <div class="desc">
-        <div class="title">{{title}}</div>
-        <div>{{description}}</div>
-        <div class="points">{{points}} points</div>
-        {{#if completed}}
+        <div class="title">{{dataValues.title}}</div>
+        <div>{{dataValues.description}}</div>
+        <div class="points">{{dataValues.points}} points</div>
+        {{#if dataValues.completed}}
         <button id="{{id}}" class="btn btn-danger incomplete">Mark Incomplete</button>
         {{/if}}
     </div>
     <div class="time">
-        <div class="date">{{date}}</div>
-        <div>{{time}}</div>
-        {{#if completed}}
-        <button id="{{id}}" class="btn btn-success confirm">Confirm</button>
+        <div class="date">{{dataValues.date}}</div>
+        <div>{{dataValues.time}}</div>
+        {{#if dataValuse.completed}}
+        <button id="{{dataValues.id}}" class="btn btn-success confirm">Confirm</button>
         {{/if}}
-        {{#unless completed}}
+        {{#unless dataValues.completed}}
         <div class="form-check">
             <label class="form-check-label" for="flexCheckDefault">complete</label>
-            <input class="form-check-input" type="checkbox" data-id="{{id}}" value="true" id="flexCheckDefault"/>
+            <input class="form-check-input" type="checkbox" data-id="{{dataValues.id}}" value="true" id="flexCheckDefault"/>
         </div>
         {{/unless}}
     </div>

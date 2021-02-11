@@ -104,55 +104,96 @@ module.exports = function (app) {
         children
         }
       }
-      db.Child.findAll({where: {parentId: req.user.id}}).then( async function(results) {
-        console.log(results[0].name)
-        for await (let item of results) {
-          let name = item.name;
-          let points = item.points;
-          let highPriority = [];
-          let mediumPriority = [];
-          let lowPriority = [];
-          db.Task.findAll({where: {childId: item.dataValues.id}}).then(async function(result) {
-            for await (let data of result) {
-              let due = `${data.dataValues.due}`
-              data.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
-              data.dataValues.time = due.split(" ")[4];
-              if (data.dataValues.priority === 3) {
-                highPriority.push(data.dataValues);
-              } else if (data.dataValues.priority === 2) {
-                mediumPriority.push(data.dataValues);
-              } else {
-                lowPriority.push(data.dataValues);
-              }
-            }
-
-            const sortedHigh = highPriority.sort(function(a,b) {
-              return new Date(a.due) - new Date(b.due);
-            });
-
-            const sortedMedium = mediumPriority.sort(function(a,b) {
-              return new Date(a.due) - new Date(b.due);
-            });
-
-            const sortedLow = lowPriority.sort(function(a,b) {
-              return new Date(a.due) - new Date(b.due);
-            });
-            
-            let taskList = {
-              name,
-              points,
-              sortedHigh,
-              sortedMedium,
-              sortedLow
-            }
-
-            children.push(taskList)
-
-          })
+      db.Child.findAll({
+        where: {
+          parentId: req.user.id
+        },
+        include: [{
+          model: db.Task
+        }]
+      }).then( async function(results) {
+        for await (let child of results) {
+          taskList = {
+            name: child.name,
+            points: child.points,
+            sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3),
+            sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2),
+            sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1)
+          }
+          if (taskList.sortedHigh.length) {
+            taskList.sortedHigh.forEach(item => {
+              const due = `${item.dataValues.due}`
+              item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+              item.dataValues.time = due.split(" ") [4];
+            })
+          }
+          if (taskList.sortedMedium.length) {
+            taskList.sortedMedium.forEach(item => {
+              const due = `${item.dataValues.due}`
+              item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+              item.dataValues.time = due.split(" ") [4];
+            })
+          }
+          if (taskList.sortedLow.length) {
+            taskList.sortedLow.forEach(item => {
+              const due = `${item.dataValues.due}`
+              item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+              item.dataValues.time = due.split(" ") [4];
+            })
+          }
+          children.push(taskList);
         }
+        hbsObject = {
+          isParent: true,
+          children
+        }
+        // for await (let item of results) {
+        //   let name = item.name;
+        //   let points = item.points;
+        //   let highPriority = [];
+        //   let mediumPriority = [];
+        //   let lowPriority = [];
+        //   db.Task.findAll({where: {childId: item.dataValues.id}}).then(async function(result) {
+        //     for await (let data of result) {
+        //       let due = `${data.dataValues.due}`
+        //       data.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
+        //       data.dataValues.time = due.split(" ")[4];
+        //       if (data.dataValues.priority === 3) {
+        //         highPriority.push(data.dataValues);
+        //       } else if (data.dataValues.priority === 2) {
+        //         mediumPriority.push(data.dataValues);
+        //       } else {
+        //         lowPriority.push(data.dataValues);
+        //       }
+        //     }
+
+        //     const sortedHigh = highPriority.sort(function(a,b) {
+        //       return new Date(a.due) - new Date(b.due);
+        //     });
+
+        //     const sortedMedium = mediumPriority.sort(function(a,b) {
+        //       return new Date(a.due) - new Date(b.due);
+        //     });
+
+        //     const sortedLow = lowPriority.sort(function(a,b) {
+        //       return new Date(a.due) - new Date(b.due);
+        //     });
+            
+        //     let taskList = {
+        //       name,
+        //       points,
+        //       sortedHigh,
+        //       sortedMedium,
+        //       sortedLow
+        //     }
+
+        //     children.push(taskList)
+
+        //   })
+        // }
         
       }).then(function() {
-        res.render("viewTasks", hbsObject(children));
+        res.render("viewTasks", hbsObject);
       })
     }
   });
