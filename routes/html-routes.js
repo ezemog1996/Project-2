@@ -98,25 +98,31 @@ module.exports = function (app) {
       })
     } else {
       let children = [];
-      db.Child.findAll({where: {parentId: req.user.id}}).then(function(results) {
+      function hbsObject(children) {
+        return {
+        isParent: true,
+        children
+        }
+      }
+      db.Child.findAll({where: {parentId: req.user.id}}).then( async function(results) {
         console.log(results[0].name)
-        for (i = 0; i < results.length; i++) {
-          let name = results[i].name;
-          let points = results[i].points;
+        for await (let item of results) {
+          let name = item.name;
+          let points = item.points;
           let highPriority = [];
           let mediumPriority = [];
           let lowPriority = [];
-          db.Task.findAll({where: {childId: results[i].dataValues.id}}).then(function(res) {
-            for (j = 0; j < res.length; j++) {
-              let due = `${res[j].dataValues.due}`
-              res[j].dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
-              res[j].dataValues.time = due.split(" ")[4];
-              if (res[j].dataValues.priority === 3) {
-                highPriority.push(res[j].dataValues);
-              } else if (res[j].dataValues.priority === 2) {
-                mediumPriority.push(res[j].dataValues);
+          db.Task.findAll({where: {childId: item.dataValues.id}}).then(async function(result) {
+            for await (let data of result) {
+              let due = `${data.dataValues.due}`
+              data.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
+              data.dataValues.time = due.split(" ")[4];
+              if (data.dataValues.priority === 3) {
+                highPriority.push(data.dataValues);
+              } else if (data.dataValues.priority === 2) {
+                mediumPriority.push(data.dataValues);
               } else {
-                lowPriority.push(res[j].dataValues);
+                lowPriority.push(data.dataValues);
               }
             }
 
@@ -144,12 +150,9 @@ module.exports = function (app) {
 
           })
         }
-        hbsObject = {
-          isParent: true,
-          children
-        }
+        
       }).then(function() {
-        res.render("viewTasks", hbsObject);
+        res.render("viewTasks", hbsObject(children));
       })
     }
   });
