@@ -33,6 +33,12 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       }
     });
+
+    Reward.associate = function(models) {
+      Reward.belongsTo(models.Child, {
+        foreignKey: 'childId'
+      })
+    }
   
     return Reward;
   

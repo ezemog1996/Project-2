@@ -68,21 +68,21 @@
                     <p>Total Points: {{points}}</p>
                     <div class="priority high high-tasks"><span>high priority</span></div>
                     {{#each sortedHigh}}
-                    {{#unless completed}}
+                    {{#unless dataValues.completed}}
                     {{> highTaskCard}}
                     {{/unless}}
                     {{/each}}
                     <br>
                     <div class="priority medium medium-tasks"><span>medium priority</span></div>
                     {{#each sortedMedium}}
-                    {{#unless completed}}
+                    {{#unless dataValues.completed}}
                     {{> mediumTaskCard}}
                     {{/unless}}
                     {{/each}}
                     <br>
                     <div class="priority low low-tasks"><span>low priority</span></div>
                     {{#each sortedLow}}
-                    {{#unless completed}}
+                    {{#unless dataValues.completed}}
                     {{> lowTaskCard}}
                     {{/unless}}
                     {{/each}}
