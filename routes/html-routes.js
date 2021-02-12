@@ -6,7 +6,44 @@ const db = require("../models");
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
-
+const sortTasks = async function(results) {
+  let children = [];
+  for await (let child of results) {
+    taskList = {
+      name: child.name,
+      points: child.points,
+      sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3),
+      sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2),
+      sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1)
+    }
+    if (taskList.sortedHigh.length) {
+      taskList.sortedHigh.forEach(item => {
+        const due = `${item.dataValues.due}`
+        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+        item.dataValues.time = due.split(" ") [4];
+      })
+    }
+    if (taskList.sortedMedium.length) {
+      taskList.sortedMedium.forEach(item => {
+        const due = `${item.dataValues.due}`
+        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+        item.dataValues.time = due.split(" ") [4];
+      })
+    }
+    if (taskList.sortedLow.length) {
+      taskList.sortedLow.forEach(item => {
+        const due = `${item.dataValues.due}`
+        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+        item.dataValues.time = due.split(" ") [4];
+      })
+    }
+    children.push(taskList);
+  }
+  return {
+    isParent: true,
+    children
+  }
+}
 
 module.exports = function (app) {
   app.get("/login", (req, res) => {
@@ -49,7 +86,6 @@ module.exports = function (app) {
   });
 
   app.get("/view_tasks", isAuthenticated, (req, res) => {
-    let hbsObject;
     if (req.user.parentId) {
       const name = req.user.name;
       const points = req.user.points;
@@ -97,13 +133,6 @@ module.exports = function (app) {
         res.render("viewTasks", hbsObject);
       })
     } else {
-      let children = [];
-      function hbsObject(children) {
-        return {
-        isParent: true,
-        children
-        }
-      }
       db.Child.findAll({
         where: {
           parentId: req.user.id
@@ -111,89 +140,8 @@ module.exports = function (app) {
         include: [{
           model: db.Task
         }]
-      }).then( async function(results) {
-        for await (let child of results) {
-          taskList = {
-            name: child.name,
-            points: child.points,
-            sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3),
-            sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2),
-            sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1)
-          }
-          if (taskList.sortedHigh.length) {
-            taskList.sortedHigh.forEach(item => {
-              const due = `${item.dataValues.due}`
-              item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-              item.dataValues.time = due.split(" ") [4];
-            })
-          }
-          if (taskList.sortedMedium.length) {
-            taskList.sortedMedium.forEach(item => {
-              const due = `${item.dataValues.due}`
-              item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-              item.dataValues.time = due.split(" ") [4];
-            })
-          }
-          if (taskList.sortedLow.length) {
-            taskList.sortedLow.forEach(item => {
-              const due = `${item.dataValues.due}`
-              item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-              item.dataValues.time = due.split(" ") [4];
-            })
-          }
-          children.push(taskList);
-        }
-        hbsObject = {
-          isParent: true,
-          children
-        }
-        // for await (let item of results) {
-        //   let name = item.name;
-        //   let points = item.points;
-        //   let highPriority = [];
-        //   let mediumPriority = [];
-        //   let lowPriority = [];
-        //   db.Task.findAll({where: {childId: item.dataValues.id}}).then(async function(result) {
-        //     for await (let data of result) {
-        //       let due = `${data.dataValues.due}`
-        //       data.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
-        //       data.dataValues.time = due.split(" ")[4];
-        //       if (data.dataValues.priority === 3) {
-        //         highPriority.push(data.dataValues);
-        //       } else if (data.dataValues.priority === 2) {
-        //         mediumPriority.push(data.dataValues);
-        //       } else {
-        //         lowPriority.push(data.dataValues);
-        //       }
-        //     }
-
-        //     const sortedHigh = highPriority.sort(function(a,b) {
-        //       return new Date(a.due) - new Date(b.due);
-        //     });
-
-        //     const sortedMedium = mediumPriority.sort(function(a,b) {
-        //       return new Date(a.due) - new Date(b.due);
-        //     });
-
-        //     const sortedLow = lowPriority.sort(function(a,b) {
-        //       return new Date(a.due) - new Date(b.due);
-        //     });
-            
-        //     let taskList = {
-        //       name,
-        //       points,
-        //       sortedHigh,
-        //       sortedMedium,
-        //       sortedLow
-        //     }
-
-        //     children.push(taskList)
-
-        //   })
-        // }
-        
-      }).then(function() {
-        res.render("viewTasks", hbsObject);
+      }).then(async function(results) {
+        res.render("viewTasks", await sortTasks(results));
       })
     }
   });
