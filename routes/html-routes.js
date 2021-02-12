@@ -9,33 +9,17 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 const sortTasks = async function(results) {
   let children = [];
   for await (let child of results) {
+    child.Tasks.forEach(item => {
+      const due = `${item.dataValues.due}`
+      item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+      item.dataValues.time = due.split(" ") [4];
+    })
     taskList = {
       name: child.name,
       points: child.points,
       sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3),
       sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2),
       sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1)
-    }
-    if (taskList.sortedHigh.length) {
-      taskList.sortedHigh.forEach(item => {
-        const due = `${item.dataValues.due}`
-        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-        item.dataValues.time = due.split(" ") [4];
-      })
-    }
-    if (taskList.sortedMedium.length) {
-      taskList.sortedMedium.forEach(item => {
-        const due = `${item.dataValues.due}`
-        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-        item.dataValues.time = due.split(" ") [4];
-      })
-    }
-    if (taskList.sortedLow.length) {
-      taskList.sortedLow.forEach(item => {
-        const due = `${item.dataValues.due}`
-        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-        item.dataValues.time = due.split(" ") [4];
-      })
     }
     children.push(taskList);
   }

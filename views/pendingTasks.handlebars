@@ -56,21 +56,21 @@
                     <p>Total Points: {{points}}</p>
                     <div class="priority high"><span>high priority</span></div>
                     {{#each sortedHigh}}
-                    {{#if completed}}
+                    {{#if dataValues.completed}}
                     {{> highTaskCard}}
                     {{/if}}
                     {{/each}}
                     <br>
                     <div class="priority medium"><span>medium priority</span></div>
                     {{#each sortedMedium}}
-                    {{#if completed}}
+                    {{#if dataValues.completed}}
                     {{> mediumTaskCard}}
                     {{/if}}
                     {{/each}}
                     <br>
                     <div class="priority low"><span>low priority</span></div>
                     {{#each sortedLow}}
-                    {{#if completed}}
+                    {{#if dataValues.completed}}
                     {{> lowTaskCard}}
                     {{/if}}
                     {{/each}}
