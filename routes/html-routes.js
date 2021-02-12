@@ -9,33 +9,17 @@ const isAuthenticated = require("../config/middleware/isAuthenticated");
 const sortTasks = async function(results) {
   let children = [];
   for await (let child of results) {
+    child.Tasks.forEach(item => {
+      const due = `${item.dataValues.due}`
+      item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
+      item.dataValues.time = due.split(" ") [4];
+    })
     taskList = {
       name: child.name,
       points: child.points,
       sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3),
       sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2),
       sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1)
-    }
-    if (taskList.sortedHigh.length) {
-      taskList.sortedHigh.forEach(item => {
-        const due = `${item.dataValues.due}`
-        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-        item.dataValues.time = due.split(" ") [4];
-      })
-    }
-    if (taskList.sortedMedium.length) {
-      taskList.sortedMedium.forEach(item => {
-        const due = `${item.dataValues.due}`
-        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-        item.dataValues.time = due.split(" ") [4];
-      })
-    }
-    if (taskList.sortedLow.length) {
-      taskList.sortedLow.forEach(item => {
-        const due = `${item.dataValues.due}`
-        item.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ") [3];
-        item.dataValues.time = due.split(" ") [4];
-      })
     }
     children.push(taskList);
   }
@@ -89,44 +73,22 @@ module.exports = function (app) {
     if (req.user.parentId) {
       const name = req.user.name;
       const points = req.user.points;
-      db.Task.findAll({where: {childId: req.user.id}}).then(function(results) {
-        let highPriority = [];
-        let mediumPriority = [];
-        let lowPriority = [];
-        for (i = 0; i < results.length; i++) {
-          let due = `${results[i].dataValues.due}`
+      db.Task.findAll({where: {childId: req.user.id}}).then(async function(results) {
+        for await (let task of results) {
+          let due = `${task.dataValues.due}`
           console.log(due)
-          results[i].dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
-          results[i].dataValues.time = due.split(" ")[4];
-          if (results[i].dataValues.priority === 3) {
-            highPriority.push(results[i].dataValues);
-          } else if (results[i].dataValues.priority === 2) {
-            mediumPriority.push(results[i].dataValues);
-          } else {
-            lowPriority.push(results[i].dataValues);
-          }
+          task.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
+          task.dataValues.time = due.split(" ")[4];
         }
-
-        const sortedHigh = highPriority.sort(function(a,b) {
-          return new Date(a.due) - new Date(b.due);
-        });
-
-        const sortedMedium = mediumPriority.sort(function(a,b) {
-          return new Date(a.due) - new Date(b.due);
-        });
-
-        const sortedLow = lowPriority.sort(function(a,b) {
-          return new Date(a.due) - new Date(b.due);
-        });
 
         hbsObject = {
           isParent: false,
           children: [{
             name,
             points,
-            sortedHigh,
-            sortedMedium,
-            sortedLow
+            sortedHigh: results.filter(task => task.dataValues.priority === 3),
+            sortedMedium: results.filter(task => task.dataValues.priority === 2),
+            sortedLow: results.filter(task => task.dataValues.priority === 1)
           }]
         }
       }).then(function() {
@@ -150,59 +112,15 @@ module.exports = function (app) {
     if (req.user.parentId) {
       res.render("noAccessPage")
     } else {
-      let hbsObject;
-      let children = [];
-      db.Child.findAll({where: {parentId: req.user.id}}).then(function(results) {
-        console.log(results[0].name)
-        for (i = 0; i < results.length; i++) {
-          let name = results[i].name;
-          let points = results[i].points;
-          let highPriority = [];
-          let mediumPriority = [];
-          let lowPriority = [];
-          db.Task.findAll({where: {childId: results[i].dataValues.id}}).then(function(res) {
-            for (j = 0; j < res.length; j++) {
-              let due = `${res[j].dataValues.due}`
-              res[j].dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
-              res[j].dataValues.time = due.split(" ")[4];
-              if (res[j].dataValues.priority === 3) {
-                highPriority.push(res[j].dataValues);
-              } else if (res[j].dataValues.priority === 2) {
-                mediumPriority.push(res[j].dataValues);
-              } else {
-                lowPriority.push(res[j].dataValues);
-              }
-            }
-
-            const sortedHigh = highPriority.sort(function(a,b) {
-              return new Date(a.due) - new Date(b.due);
-            });
-
-            const sortedMedium = mediumPriority.sort(function(a,b) {
-              return new Date(a.due) - new Date(b.due);
-            });
-
-            const sortedLow = lowPriority.sort(function(a,b) {
-              return new Date(a.due) - new Date(b.due);
-            });
-            
-            let taskList = {
-              name,
-              points,
-              sortedHigh,
-              sortedMedium,
-              sortedLow
-            }
-
-            children.push(taskList)
-
-          })
-        }
-        hbsObject = {
-          children
-        }
-      }).then(function() {
-        res.render("pendingTasks", hbsObject);
+      db.Child.findAll({
+        where: {
+          parentId: req.user.id
+        },
+        include: [{
+          model: db.Task
+        }]
+      }).then(async function(results) {
+        res.render("pendingTasks", await sortTasks(results));
       })
     }
   })
@@ -239,7 +157,8 @@ module.exports = function (app) {
         res.render("viewPrizes", hbsObject);
       })
     } else {
-      db.Child.findAll({where: {parentId: req.user.id}}).then(function(result) {
+      db.Child.findAll({where: {parentId: req.user.id}, include: [{model: db.Reward}]}).then(function(result) {
+        console.log(result)
         prizes = [];
         result.forEach(item => {
           db.Reward.findAll({where: {childId: item.dataValues.id}}).then(function(results) {

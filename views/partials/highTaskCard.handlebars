@@ -4,13 +4,13 @@
         <div>{{dataValues.description}}</div>
         <div class="points">{{dataValues.points}} points</div>
         {{#if dataValues.completed}}
-        <button id="{{id}}" class="btn btn-danger incomplete">Mark Incomplete</button>
+        <button id="{{dataValues.id}}" class="btn btn-danger incomplete">Mark Incomplete</button>
         {{/if}}
     </div>
     <div class="time">
         <div class="date">{{dataValues.date}}</div>
         <div>{{dataValues.time}}</div>
-        {{#if dataValuse.completed}}
+        {{#if dataValues.completed}}
         <button id="{{dataValues.id}}" class="btn btn-success confirm">Confirm</button>
         {{/if}}
         {{#unless dataValues.completed}}
