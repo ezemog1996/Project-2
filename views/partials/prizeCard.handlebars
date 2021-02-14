@@ -1,15 +1,15 @@
 <div class="card m-2" style="width: 18rem;">
-    <img src="{{image}}" class="card-img-top" alt="...">
+    <img src="{{'Rewards.image'}}" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
-        <h5 style="color:red;">{{points}} points</h5>
+        <h5 class="card-title">{{'Rewards.title'}}</h5>
+        <h5 style="color:red;">{{'Rewards.points'}} points</h5>
         {{#if isParent}}
-        <h5><span class="{{childId}}">{{childName}}</span> has {{childPoints}} points</h5>
-        <p class="card-text">Price: {{price}}</p>
-        <p>ASIN: {{asin}}</p>
-        <a target="_blank" href="{{link}}" class="btn btn-danger text-white">View on Amazon</a>
-        <button id="{{id}}" data-points="{{points}}" data-id="{{childId}}" type="button" class="btn btn-primary cash mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Cash Points for this</button>
-        <button id="{{asin}}" class="addToCart mt-1">Add to Cart</p>
+        <h5><span class="{{'Rewards.childId'}}">{{name}}</span> has {{points}} points</h5>
+        <p class="card-text">Price: {{'Rewards.price'}}</p>
+        <p>ASIN: {{'Rewards.asin'}}</p>
+        <a target="_blank" href="{{'Rewards.link'}}" class="btn btn-danger text-white">View on Amazon</a>
+        <button id="{{'Rewards.id'}}" data-points="{{'Rewards.points'}}" data-id="{{'Rewards.childId'}}" type="button" class="btn btn-primary cash mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Cash Points for this</button>
+        <button id="{{'Rewards.asin'}}" class="addToCart mt-1">Add to Cart</p>
         {{/if}}
     </div>
 </div>

@@ -76,7 +76,6 @@ module.exports = function (app) {
       db.Task.findAll({where: {childId: req.user.id}}).then(async function(results) {
         for await (let task of results) {
           let due = `${task.dataValues.due}`
-          console.log(due)
           task.dataValues.date = due.split(" ")[1] + " " + due.split(" ")[2] + " " + due.split(" ")[3];
           task.dataValues.time = due.split(" ")[4];
         }
@@ -144,10 +143,20 @@ module.exports = function (app) {
   app.get("/view_rewards", isAuthenticated, (req, res) => {
     let hbsObject;
     if (req.user.parentId) {
-      prizes = [];
-      db.Reward.findAll({where: {childId: req.user.id}}).then((result) => {
-        result.forEach(item => item.dataValues.isParent = false)
-        result.forEach(item => prizes.push(item.dataValues))
+      db.Reward.findAll({where: {childId: req.user.id}, raw: true}).then(async (result) => {
+        await result.forEach(item => {
+          item['Rewards.image'] = item.image;
+          item['Rewards.childId'] = item.childId;
+          item['Rewards.points'] = item.points;
+          item['Rewards.title'] = item.title;
+          item['Rewards.price'] = item.price;
+          item['Rewards.asin'] = item.asin;
+          item['Rewards.link'] = item.link;
+          item.isParent = false;
+        })
+
+        const prizes = result;
+
         hbsObject = {
           childPoints: req.user.points,
           isParent: false,
@@ -157,31 +166,31 @@ module.exports = function (app) {
         res.render("viewPrizes", hbsObject);
       })
     } else {
-      db.Child.findAll({where: {parentId: req.user.id}, include: [{model: db.Reward}]}).then(function(result) {
-        console.log(result)
-        prizes = [];
-        result.forEach(item => {
-          db.Reward.findAll({where: {childId: item.dataValues.id}}).then(function(results) {
-            result.forEach(child => {
-              results.forEach(reward => {
-                if (child.id === reward.childId) {
-                  reward.dataValues.childName = child.name;
-                  reward.dataValues.childPoints = child.points;
-                  reward.dataValues.isParent = true;
-                }
-              })
-            })
-            results.forEach(reward => prizes.push(reward.dataValues))
-          })
-        })
-
-        hbsObject = {
-          isParent: true,
-          prizes
+      db.Child.findAll(
+        {
+          where: {
+            parentId: req.user.id
+          },
+          include: [{
+            model: db.Reward
+          }],
+          raw: true
         }
-      }).then(function() {
-        res.render("viewPrizes", hbsObject);
-      })
+      )
+        .then(async function(result) {
+          for await (let reward of result) {
+            reward.isParent = true;
+          }
+          const prizes = await result.filter(item => item['Rewards.id'] !== null);
+
+          hbsObject = {
+            isParent: true,
+            prizes
+          }
+        })
+          .then(function() {
+            res.render("viewPrizes", hbsObject);
+          })
     }
   })
 

@@ -1,6 +1,4 @@
 $(document).ready(() => {
-  console.log("Ready!");
-
   
   var searchButton = $("#search");
 
@@ -30,8 +28,6 @@ $(document).ready(() => {
           results.push(data.search_results[i]);
         }
       }
-
-      console.log(results);
 
       let resultsMarkup = "";
 
@@ -108,8 +104,6 @@ $(document).ready(() => {
 
           getChildren();
 
-          console.log(results[parseInt(event.target.id)])
-
           image = results[parseInt(event.target.id)].image;
           title = results[parseInt(event.target.id)].title;
           price = results[parseInt(event.target.id)].price.raw;
@@ -131,8 +125,6 @@ $(document).ready(() => {
           asin,
           link
         }
-
-        console.log(itemData);
 
         $.post("/api/add_reward", itemData).then(() => {
           $("#confirm").addClass("hide");

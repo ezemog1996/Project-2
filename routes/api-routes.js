@@ -26,7 +26,6 @@ module.exports = function (app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
-    console.log("were here");
     let parent = db.Parent.create({
       email: req.body.email,
       password: req.body.password,
@@ -136,7 +135,6 @@ module.exports = function (app) {
       db.Child.findOne({where: {
         id: result.dataValues.childId
       }}).then(function(data) {
-        console.log(data.dataValues)
         const newPoints = data.dataValues.points + result.dataValues.points;
         const newCompleted = data.dataValues.tasksCompleted + 1;
         db.Child.update({points: newPoints, tasksCompleted: newCompleted}, {
@@ -179,7 +177,6 @@ module.exports = function (app) {
   app.delete("/api/cash_points/:id/:childId/:points", (req, res) => {
     db.Child.findOne({where: {id: req.params.childId}})
       .then(function(result) {
-        console.log(result)
         if (result.dataValues.points >= parseInt(req.params.points)) {
           db.Child.update(
             {

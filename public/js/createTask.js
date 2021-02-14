@@ -1,5 +1,4 @@
 $(document).ready(() => {
-    console.log("Ready!");
 
     $.get("/api/get_children", function(data) {
         for (i = 0; i < data.length; i++) {
@@ -25,7 +24,6 @@ $(document).ready(() => {
             points: points.val().trim(),
             priority: priority.val(),
         };
-        console.log(taskData);
 
         if (!taskData.childId || !taskData.title || !taskData.description || !taskData.due || !taskData.points || !taskData.priority) {
             return
