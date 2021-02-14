@@ -19,7 +19,6 @@ $(document).ready(() => {
             isValid--
           }
         }
-        console.log(isValid);
       })
       
     })

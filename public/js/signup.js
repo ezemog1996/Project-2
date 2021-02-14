@@ -17,7 +17,6 @@ $(document).ready(() => {
       city: cityInput.val().trim(),
       password: passwordInput.val().trim()
     };
-    console.log(userData);
 
     if (!userData.email || !userData.password) {
       return;
@@ -32,7 +31,6 @@ $(document).ready(() => {
         userData.password
       )
       .then((res) => {
-        console.log(res);
         window.location.href = "/login";
         nameInput.val("");
         emailInput.val("");

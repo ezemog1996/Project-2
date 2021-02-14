@@ -4,12 +4,10 @@ $(document).ready(function() {
 
     for (i = 0; i < taskCheck.length; i++) {
         taskCheck[i].addEventListener("click", function() {
-            console.log($(this).val());
             const taskData = {
                 id: $(this).attr("data-id"),
                 completed: $(this).val()
             }
-            console.log(taskData)
             
             $.ajax({
                 method: "PUT",
