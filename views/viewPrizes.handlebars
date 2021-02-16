@@ -22,23 +22,23 @@
                 <ul class="navbar-nav">
                   {{#if isParent}}
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                    <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
                   </li>
                   {{/if}}
                   {{#if isParent}}
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Tasks
                     </a>
                     <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="/pending_tasks">View Tasks Awaiting Approval</a></li>
-                      <li><a class="dropdown-item" href="/view_tasks">View Incomplete Tasks</a></li>
                       <li><a class="dropdown-item" href="/new_task">Assign New Task</a></li>
+                      <li><a class="dropdown-item" href="/view_tasks">Tasks Awaiting Completion</a></li>
+                      <li><a class="dropdown-item" href="/pending_tasks">Tasks Awaiting Confirmation</a></li>
                     </ul>
                   </li>
                   {{/if}}
                   {{#unless isParent}}
-                  <li class="nav-item"><a class="nav-link active" href="/view_tasks">View Tasks</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/view_tasks">Tasks</a></li>
                   {{/unless}}
                   {{#if isParent}}
                   <li class="nav-item dropdown">
@@ -46,13 +46,13 @@
                       Prizes
                     </a>
                     <ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="/search_rewards">Search Rewards</a></li>
-                      <li><a class="dropdown-item" href="/view_rewards">View Saved Rewards</a></li>
+                      <li><a class="dropdown-item" href="/search_rewards">Search for Rewards</a></li>
+                      <li><a class="dropdown-item" href="/view_rewards">Saved Rewards</a></li>
                     </ul>
                   </li>
                   {{/if}}
                   {{#unless isParent}}
-                    <li class="nav-item"><a class="nav-link active" href="/view_rewards">View Rewards</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/view_rewards">Rewards</a></li>
                   {{/unless}}
                 </ul>
               </div>

@@ -1,12 +1,25 @@
 $(document).ready(() => {
   
   var searchButton = $("#search");
+  var input = $("#inputSearch");
 
   let item = 1;
 
   let loadingInterval;
 
-  searchButton.click(function() {
+  searchButton.click(search);
+  input.on("keydown", function(event) {
+    if (event.key === 'Enter') {
+      if (input.val().trim() === "") {
+        alert("Please type something to search")
+      } else {
+        search();
+      }
+    }
+  })
+
+
+  function search() {
     var search = $("#inputSearch").val();
 
     $.ajax({
@@ -184,9 +197,7 @@ $(document).ready(() => {
 
       alert("We couldn't find what you're looking for");
     })
-  },
-
-  );
+  }
 });
 
   
