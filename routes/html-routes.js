@@ -6,7 +6,7 @@ const db = require("../models");
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/middleware/isAuthenticated");
 
-const sortTasks = async function(results) {
+const sortTasks = async function(results, completed) {
   let children = [];
   for await (let child of results) {
     child.Tasks.forEach(item => {
@@ -17,12 +17,24 @@ const sortTasks = async function(results) {
     taskList = {
       name: child.name,
       points: child.points,
-      sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3),
-      sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2),
-      sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1)
+      sortedHigh: child.Tasks.filter(task => task.dataValues.priority === 3 && task.dataValues.completed === completed),
+      sortedMedium: child.Tasks.filter(task => task.dataValues.priority === 2 && task.dataValues.completed === completed),
+      sortedLow: child.Tasks.filter(task => task.dataValues.priority === 1 && task.dataValues.completed === completed)
     }
+
+    if (taskList.sortedHigh.length > 0) taskList.hasHigh = true;
+    if (taskList.sortedMedium.length > 0) taskList.hasMedium = true;
+    if (taskList.sortedLow.length > 0) taskList.hasLow = true;
+
+    if (taskList.sortedHigh.length === 0 && taskList.sortedMedium.length === 0 && taskList.sortedLow.length ===0) {
+      taskList.hasTasks = false;
+    } else {
+      taskList.hasTasks = true;
+    }
+
     children.push(taskList);
   }
+
   return {
     isParent: true,
     children
@@ -102,7 +114,7 @@ module.exports = function (app) {
           model: db.Task
         }]
       }).then(async function(results) {
-        res.render("viewTasks", await sortTasks(results));
+        res.render("viewTasks", await sortTasks(results, false));
       })
     }
   });
@@ -119,7 +131,7 @@ module.exports = function (app) {
           model: db.Task
         }]
       }).then(async function(results) {
-        res.render("pendingTasks", await sortTasks(results));
+        res.render("pendingTasks", await sortTasks(results, true));
       })
     }
   })
