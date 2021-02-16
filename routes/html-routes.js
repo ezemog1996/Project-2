@@ -155,25 +155,35 @@ module.exports = function (app) {
   app.get("/view_rewards", isAuthenticated, (req, res) => {
     let hbsObject;
     if (req.user.parentId) {
-      db.Reward.findAll({where: {childId: req.user.id}, raw: true}).then(async (result) => {
-        await result.forEach(item => {
-          item['Rewards.image'] = item.image;
-          item['Rewards.childId'] = item.childId;
-          item['Rewards.points'] = item.points;
-          item['Rewards.title'] = item.title;
-          item['Rewards.price'] = item.price;
-          item['Rewards.asin'] = item.asin;
-          item['Rewards.link'] = item.link;
-          item.isParent = false;
+      db.Reward.findAll({
+        where: {
+          childId: req.user.id
+        },
+        raw: true
+      }).then(async (result) => {
+        const setupAttributes = new Promise((resolve, reject) => {
+          result.forEach(item => {
+            item['Rewards.image'] = item.image;
+            item['Rewards.childId'] = item.childId;
+            item['Rewards.points'] = item.points;
+            item['Rewards.title'] = item.title;
+            item['Rewards.price'] = item.price;
+            item['Rewards.asin'] = item.asin;
+            item['Rewards.link'] = item.link;
+            item.isParent = false;
+          })
+
+          resolve("Ready!")
         })
 
-        const prizes = result;
-
-        hbsObject = {
-          childPoints: req.user.points,
-          isParent: false,
-          prizes
-        }
+        setupAttributes.then(() => {
+          hbsObject = {
+            childPoints: req.user.points,
+            isParent: false,
+            prizes: result
+          }
+        })
+        
       }).then(function() {
         res.render("viewPrizes", hbsObject);
       })
