@@ -64,15 +64,21 @@
             {{#each children}}
             <div class="tasks">
                 <div class="task-list">
+                    {{#if hasTasks}}
                     <h1>{{ name }}'s Incomplete Tasks</h1>
+                    {{/if}}
+                    {{#unless hasTasks}}
+                    <h1>{{name}} has no tasks</h1>
+                    {{/unless}}
                     <p>Total Points: {{points}}</p>
+                    {{#if hasHigh}}
                     <div class="priority high high-tasks"><span>high priority</span></div>
                     {{#each sortedHigh}}
-                    {{#unless dataValues.completed}}
                     {{> highTaskCard}}
-                    {{/unless}}
                     {{/each}}
                     <br>
+                    {{/if}}
+                    {{#if hasMedium}}
                     <div class="priority medium medium-tasks"><span>medium priority</span></div>
                     {{#each sortedMedium}}
                     {{#unless dataValues.completed}}
@@ -80,12 +86,15 @@
                     {{/unless}}
                     {{/each}}
                     <br>
+                    {{/if}}
+                    {{#if hasLow}}
                     <div class="priority low low-tasks"><span>low priority</span></div>
                     {{#each sortedLow}}
                     {{#unless dataValues.completed}}
                     {{> lowTaskCard}}
                     {{/unless}}
                     {{/each}}
+                    {{/if}}
                     <div class="clearfix"></div>		
                 </div>		
             </div>
