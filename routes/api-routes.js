@@ -39,23 +39,31 @@ module.exports = function (app) {
     })
   });
 
-  app.post("/api/child_registration", async (req, res) => {
+  app.post("/api/child_registration", (req, res) => {
     const children = JSON.parse(req.body.data);
-    let keepTrackNumber = 0;
-    children.forEach(item => {
-      db.Child.create({
-        parentId: req.user.id,
-        name: item.name,
-        username: item.username,
-        password: item.password,
-        birthday: item.birthday,
-        gender: item.gender,
-        color: item.color
-      }).then(function() {
-        keepTrackNumber++;
-        if (keepTrackNumber === children.length) res.status(200).send(children);
+    // let keepTrackNumber = 0;
+    const registerChildren = new Promise((resolve, reject) => {
+      children.forEach(item => {
+        db.Child.create({
+          parentId: req.user.id,
+          name: item.name,
+          username: item.username,
+          password: item.password,
+          birthday: item.birthday,
+          gender: item.gender,
+          color: item.color
+        })
       })
+      resolve(`Registered your children`)
     })
+
+    registerChildren.then((message) => {
+        console.log(message)
+        res.status(200).send(message)
+    })
+      .catch(() => {
+        res.status(500).send("Failed to Register");
+      })
   });
 
   // Route for logging user out
@@ -94,22 +102,27 @@ module.exports = function (app) {
   }
 
   app.get("/api/get_children", (req, res) => {
-    db.Child.findAll({attributes: ['id', 'name', 'username'], where: {parentId: req.user.id}}).then(function(result) {
-      res.json(result)
-    })
+    db.Child.findAll({attributes: ['id', 'name', 'username'], where: {parentId: req.user.id}})
+      .then(function(result) {
+        res.json(result)
+      })
   })
 
   app.post("/api/create_task", (req, res) => {
-    let task = db.Task.create(req.body).then(function() {
-      db.Child.findOne({where: {id: req.body.childId}}).then(function(result) {
-        const newAssigned = result.dataValues.tasksAssigned + 1;
-        db.Child.update({tasksAssigned: newAssigned}, {
-          where: {
-            id: req.body.childId
-          }
-        })
-      })
-    });
+    let task = db.Task.create(req.body)
+      .then(function() {
+        db.Child.findOne({where: {id: req.body.childId}})
+          .then(async function(result) {
+            db.Child.update({
+                tasksAssigned: result.dataValues.tasksAssigned + 1
+              },
+              {
+                where: {
+                  id: req.body.childId
+                }
+              })
+          })
+      });
 
     if (task) {
       res.status(200).send(task);
@@ -129,15 +142,25 @@ module.exports = function (app) {
   })
 
   app.delete("/api/approve_task/:id", (req, res) => {
-    db.Task.findOne({where: {
-      id: req.params.id
-    }}).then(function(result) {
-      db.Child.findOne({where: {
+    db.Task.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result) {
+      db.Child.findOne({
+        where: {
         id: result.dataValues.childId
-      }}).then(function(data) {
-        const newPoints = data.dataValues.points + result.dataValues.points;
-        const newCompleted = data.dataValues.tasksCompleted + 1;
-        db.Child.update({points: newPoints, tasksCompleted: newCompleted}, {
+        }
+      }).then(async function(data) {
+        const newPoints = await data.dataValues.points + result.dataValues.points;
+        const newCompleted = await data.dataValues.tasksCompleted + 1;
+        const newAssigned = await data.dataValues.tasksAssigned - 1;
+        db.Child.update({
+          points: newPoints,
+          tasksCompleted: newCompleted,
+          tasksAssigned: newAssigned
+        },
+        {
           where: {
             id: data.dataValues.id
           }
@@ -156,7 +179,10 @@ module.exports = function (app) {
   })
 
   app.put("/api/reject_task", (req, res) => {
-    db.Task.update({completed: req.body.completed}, {
+    db.Task.update({
+      completed: req.body.completed
+    },
+    {
       where: {
         id: req.body.id
       }
@@ -166,16 +192,21 @@ module.exports = function (app) {
   })
 
   app.post("/api/add_reward", (req, res) => {
-    let reward = db.Reward.create(req.body)
-    if (reward) {
-      res.status(200).send(reward);
-    } else {
-      res.status(500).send("error encountered");
-    }
+    db.Reward.create(req.body)
+      .then((result) => {
+        res.status(200).send(result);
+      })
+      .catch(() => {
+        res.status(500).send("error encountered")
+      })
   })
 
   app.delete("/api/cash_points/:id/:childId/:points", (req, res) => {
-    db.Child.findOne({where: {id: req.params.childId}})
+    db.Child.findOne({
+      where: {
+        id: req.params.childId
+      }
+    })
       .then(function(result) {
         if (result.dataValues.points >= parseInt(req.params.points)) {
           db.Child.update(
