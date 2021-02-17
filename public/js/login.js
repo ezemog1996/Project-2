@@ -7,6 +7,7 @@ $(document).ready(() => {
   // When the signup button is clicked, we validate the email and password are not blank
   loginForm.on("submit", event => {
     event.preventDefault();
+    $("#error-message").text("");
     const userData = {
       email: emailInput.val().trim(),
       password: passwordInput.val().trim()
@@ -45,7 +46,6 @@ $(document).ready(() => {
   }
 
   function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
+    $("#error-message").text("Email/Username and Password do not match")
   }
 });
