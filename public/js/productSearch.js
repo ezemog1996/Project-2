@@ -22,6 +22,11 @@ $(document).ready(() => {
   function search() {
     var search = $("#inputSearch").val();
 
+    if (input.val().trim() === "") {
+      alert("Please type something to search");
+      return
+    }
+
     $.ajax({
       url: "https://api.rainforestapi.com/request?api_key=C042717A282A49FAAABB8D1663D1E7B7&amazon_domain=amazon.com&type=search&search_term="+ search,
       type: "GET",

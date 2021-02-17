@@ -10,6 +10,7 @@ $(document).ready(() => {
   // When the signup button is clicked, we validate the email and password are not blank
   signUpForm.on("submit", event => {
     event.preventDefault();
+    ("#error-message").text("");
     const userData = {
       name: nameInput.val().trim(),
       email: emailInput.val().trim(),
@@ -17,6 +18,10 @@ $(document).ready(() => {
       city: cityInput.val().trim(),
       password: passwordInput.val().trim()
     };
+
+    if (userData.name === "" || userData.email === "" || userData.state === "" || userData.city === "" || userData.password === "") {
+      $("#error-message").text("Please fill in all fields");
+    }
 
     if (!userData.email || !userData.password) {
       return;
@@ -76,7 +81,6 @@ $(document).ready(() => {
   }
 
   function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
+    $("#error-message").text("This email already has an account")
   }
 });

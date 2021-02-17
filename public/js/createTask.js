@@ -21,12 +21,18 @@ $(document).ready(() => {
             title: titleInput.val().trim(),
             description: descriptionInput.val().trim(),
             due: date.val().trim() + "T" + time.val(),
-            points: points.val().trim(),
+            points: parseInt(points.val().trim()),
             priority: priority.val(),
         };
 
-        if (!taskData.childId || !taskData.title || !taskData.description || !taskData.due || !taskData.points || !taskData.priority) {
-            return
+        if (!taskData.childId || !taskData.title || !taskData.description || !taskData.due || !taskData.priority) {
+            alert("Please fill out all fields");
+            return;
+        }
+
+        if (!taskData.points) {
+            alert("The point value of the task should be a number");
+            return;
         }
 
         saveTask(
