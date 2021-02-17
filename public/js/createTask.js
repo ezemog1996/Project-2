@@ -63,7 +63,7 @@ $(document).ready(() => {
             priority
         })
           .then(() => {
-              console.log("Task added!");
+              $("#success-div").text("Task added!");
           })
           .catch(handleSaveErr);
     }
