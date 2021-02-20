@@ -7,19 +7,19 @@ $(document).ready(() => {
 
   let loadingInterval;
 
-  searchButton.click(search);
+  searchButton.click(searchResults);
   input.on("keydown", function(event) {
     if (event.key === 'Enter') {
       if (input.val().trim() === "") {
         alert("Please type something to search")
       } else {
-        search();
+        searchResults();
       }
     }
   })
 
 
-  function search() {
+  function searchResults() {
     var search = $("#inputSearch").val();
 
     if (input.val().trim() === "") {
@@ -36,7 +36,9 @@ $(document).ready(() => {
         loadingInterval = setInterval(function() {
           i = ++i % 4;
           $("#markup-container").html("loading" + Array(i+1).join("."));
-        }, 500)
+        }, 500);
+        searchButton.off("click");
+        input.off("keydown")
       },
       success: function(data) {
         let results = [];
@@ -195,7 +197,17 @@ $(document).ready(() => {
       }
       },
       complete: function() {
-        clearInterval(loadingInterval)
+        clearInterval(loadingInterval);
+        searchButton.click(searchResults);
+        input.on("keydown", function(event) {
+          if (event.key === 'Enter') {
+            if (input.val().trim() === "") {
+              alert("Please type something to search")
+            } else {
+              searchResults();
+            }
+          }
+        })
       }
     }).catch(function(error){
 
